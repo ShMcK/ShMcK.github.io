@@ -42,7 +42,7 @@
     <meta property="og:description" content="Part 3 6 Ways to use Webpack Require with Angular For some reason, Webpack &amp;amp; Angular reminds me of late 90s Acne commercials.   It keeps your code: clean, clear &amp;amp; under control What a terrible way to start a blog..." />
     <meta property="og:url" content="http://localhost:2368/webpack-angular-part-3/" />
     <meta property="article:published_time" content="2015-04-15T02:37:27.243Z" />
-    <meta property="article:modified_time" content="2015-04-15T06:11:17.291Z" />
+    <meta property="article:modified_time" content="2015-04-15T06:16:31.541Z" />
     
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="Webpack &amp; Angular: Part 3" />
@@ -65,7 +65,7 @@
     "headline": "Webpack &amp; Angular: Part 3",
     "url": "http://localhost:2368/webpack-angular-part-3/",
     "datePublished": "2015-04-15T02:37:27.243Z",
-    "dateModified": "2015-04-15T06:11:17.291Z",
+    "dateModified": "2015-04-15T06:16:31.541Z",
     "description": "Part 3 6 Ways to use Webpack Require with Angular For some reason, Webpack &amp;amp; Angular reminds me of late 90s Acne commercials.   It keeps your code: clean, clear &amp;amp; under control What a terrible way to start a blog..."
 }
     </script>
@@ -254,7 +254,7 @@ export default () =&gt; {
 
 <p><code>npm install -D raw-loader</code></p>
 
-<p>Add another loader to our <code>webpack.config.js</code> file.</p>
+<p>Add another loader to our <code>app/webpack.config.js</code> file.</p>
 
 <pre><code class="language-js">{
     test: /\.html/,
@@ -327,9 +327,9 @@ template: require('./nav.html')
 <p>A relative path points to files relative to the current directory.  </p>
 
 <pre><code>parent.js  
-└── file.js
-    └── folder
-            └──child.js
+├── file.js
+│   ├── folder
+│   │       └──child.js
 </code></pre>
 
 <ul>
@@ -344,7 +344,7 @@ template: require('./nav.html')
 
 <p>To use absolute paths with Webpack, we must first tell <code>webpack.config</code> our absolute root.</p>
 
-<p>/webpack.config.js</p>
+<p>/app/webpack.config.js</p>
 
 <pre><code class="language-js">module.exports = {  
   /* ... */
@@ -405,7 +405,7 @@ angular.element(document).ready(() =&gt; {
 
 <p>Notice a few optimizations using MODE.production. But where does MODE come from? We can let webpack know.</p>
 
-<p>/webpack.config.js</p>
+<p>/app/webpack.config.js</p>
 
 <pre><code class="language-js">module.exports = {  
 /* ... */
@@ -430,9 +430,9 @@ plugins: [
 
 <p>Webpack's require gives you a lot more flexibility for building modular apps.</p>
 
-<p>Again, check out the codebase on <a href="https://github.com/ShMcK/WebpackAngularDemos">Github</a>.</p>
+<p>But we're really only scratching the surface of what Webpack can do. Check out the <a href="http://webpack.github.io/docs/">docs</a> for more.</p>
 
-<p>If you have any suggestions or other uses, post a comment below.</p>
+<p>And again, check out the codebase or post any issues on <a href="https://github.com/ShMcK/WebpackAngularDemos">Github</a>. If you have any suggestions or other uses, post a comment below.</p>
             </section>
             <footer class="post-footer">
                 <section class="share">

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[ShMcK]]></title><description><![CDATA[JavaScript Web Dev in Korea]]></description><link>http://localhost:2368/</link><generator>Ghost 0.6</generator><lastBuildDate>Wed, 15 Apr 2015 06:09:27 GMT</lastBuildDate><atom:link href="http://localhost:2368/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Webpack & Angular: Part 3]]></title><description><![CDATA[<h5 id="part3">Part 3</h5>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[ShMcK]]></title><description><![CDATA[JavaScript Web Dev in Korea]]></description><link>http://localhost:2368/</link><generator>Ghost 0.6</generator><lastBuildDate>Wed, 15 Apr 2015 06:11:22 GMT</lastBuildDate><atom:link href="http://localhost:2368/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Webpack & Angular: Part 3]]></title><description><![CDATA[<h5 id="part3">Part 3</h5>
 
 <h1 id="6waystousewebpackrequirewithangular">6 Ways to use Webpack Require with Angular</h1>
 
@@ -160,7 +160,7 @@ export default () =&gt; {
 
 <p><code>npm install -D raw-loader</code></p>
 
-<p>Add another loader to our <code>app/webpack.config.js</code> file.</p>
+<p>Add another loader to our <code>webpack.config.js</code> file.</p>
 
 <pre><code class="language-js">{
     test: /\.html/,
@@ -250,7 +250,7 @@ template: require('./nav.html')
 
 <p>To use absolute paths with Webpack, we must first tell <code>webpack.config</code> our absolute root.</p>
 
-<p>/app/webpack.config.js</p>
+<p>/webpack.config.js</p>
 
 <pre><code class="language-js">module.exports = {  
   /* ... */
@@ -311,7 +311,7 @@ angular.element(document).ready(() =&gt; {
 
 <p>Notice a few optimizations using MODE.production. But where does MODE come from? We can let webpack know.</p>
 
-<p>/app/webpack.config.js</p>
+<p>/webpack.config.js</p>
 
 <pre><code class="language-js">module.exports = {  
 /* ... */
@@ -538,7 +538,7 @@ global.$ = global.jQuery = require('jquery');
 
 <p>Add the loader to your webpack.config file and tell it to grab anything that looks like a font.</p>
 
-<p>/app/webpack.config.js</p>
+<p>/webpack.config.js</p>
 
 <pre><code class="language-js">{
     test: /\.(woff|woff2|ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,

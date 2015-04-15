@@ -42,7 +42,7 @@
     <meta property="og:description" content="Part 1 Getting Started There are a lot of module loaders out there: Require.js, JSPM using System.js, to name a few.  Eventually the JavaScript community will come around and land on a winning module loader. My guess is..." />
     <meta property="og:url" content="http://localhost:2368/webpack-angular-part-1/" />
     <meta property="article:published_time" content="2015-04-15T02:37:06.558Z" />
-    <meta property="article:modified_time" content="2015-04-15T05:57:23.997Z" />
+    <meta property="article:modified_time" content="2015-04-15T06:09:21.358Z" />
     
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="Webpack &amp; Angular: Part 1" />
@@ -65,7 +65,7 @@
     "headline": "Webpack &amp; Angular: Part 1",
     "url": "http://localhost:2368/webpack-angular-part-1/",
     "datePublished": "2015-04-15T02:37:06.558Z",
-    "dateModified": "2015-04-15T05:57:23.997Z",
+    "dateModified": "2015-04-15T06:09:21.358Z",
     "description": "Part 1 Getting Started There are a lot of module loaders out there: Require.js, JSPM using System.js, to name a few.  Eventually the JavaScript community will come around and land on a winning module loader. My guess is..."
 }
     </script>
@@ -178,7 +178,7 @@
 
 <p>Webpack will also require a <a href="http://webpack.github.io/docs/configuration.html">webpack configuration file</a>: <code>webpack.config.js</code>. Make the file and add the following:</p>
 
-<p>/app/webpack.config.js</p>
+<p>/webpack.config.js</p>
 
 <pre><code class="language-js">'use strict';  
 var webpack = require('webpack'),  
@@ -315,7 +315,7 @@ angular.element(document).ready(function () {
 
 <p>Finally, let's make <code>bootstrap.js</code> our new Webpack entry point.</p>
 
-<p>/app/webpack.config.js</p>
+<p>/webpack.config.js</p>
 
 <pre><code class="language-js">entry: {  
     app: ['webpack/hot/dev-server', './core/bootstrap.js']
@@ -357,7 +357,7 @@ var appModule = require('../index');
 
 <p>Webpack can use a Regex test to determine which loader to use. Add this to your webpack.config.js file.</p>
 
-<p>/app/webpack.config.js</p>
+<p>/webpack.config.js</p>
 
 <pre><code class="language-js">module.exports = {  
 /* context, entry, output */
@@ -407,7 +407,7 @@ var appModule = require('../index');
 
 <p>As before, we provide a loader object with a pattern matching test case. We'll exclude compiling packages.</p>
 
-<p>/app/webpack.config.js</p>
+<p>/webpack.config.js</p>
 
 <pre><code class="language-js">loaders: [  
 {

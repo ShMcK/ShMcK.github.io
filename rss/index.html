@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[ShMcK]]></title><description><![CDATA[JavaScript Web Dev in Korea]]></description><link>http://localhost:2368/</link><generator>Ghost 0.6</generator><lastBuildDate>Wed, 15 Apr 2015 05:57:32 GMT</lastBuildDate><atom:link href="http://localhost:2368/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Webpack & Angular: Part 3]]></title><description><![CDATA[<h5 id="part3">Part 3</h5>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[ShMcK]]></title><description><![CDATA[JavaScript Web Dev in Korea]]></description><link>http://localhost:2368/</link><generator>Ghost 0.6</generator><lastBuildDate>Wed, 15 Apr 2015 06:09:27 GMT</lastBuildDate><atom:link href="http://localhost:2368/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Webpack & Angular: Part 3]]></title><description><![CDATA[<h5 id="part3">Part 3</h5>
 
 <h1 id="6waystousewebpackrequirewithangular">6 Ways to use Webpack Require with Angular</h1>
 
@@ -233,9 +233,9 @@ template: require('./nav.html')
 <p>A relative path points to files relative to the current directory.  </p>
 
 <pre><code>parent.js  
-├── file.js
-│   ├── folder
-│   │       └──child.js
+└── file.js
+    └── folder
+            └──child.js
 </code></pre>
 
 <ul>
@@ -651,7 +651,7 @@ global.$ = global.jQuery = require('jquery');
 
 <p>Webpack will also require a <a href="http://webpack.github.io/docs/configuration.html">webpack configuration file</a>: <code>webpack.config.js</code>. Make the file and add the following:</p>
 
-<p>/app/webpack.config.js</p>
+<p>/webpack.config.js</p>
 
 <pre><code class="language-js">'use strict';  
 var webpack = require('webpack'),  
@@ -788,7 +788,7 @@ angular.element(document).ready(function () {
 
 <p>Finally, let's make <code>bootstrap.js</code> our new Webpack entry point.</p>
 
-<p>/app/webpack.config.js</p>
+<p>/webpack.config.js</p>
 
 <pre><code class="language-js">entry: {  
     app: ['webpack/hot/dev-server', './core/bootstrap.js']
@@ -830,7 +830,7 @@ var appModule = require('../index');
 
 <p>Webpack can use a Regex test to determine which loader to use. Add this to your webpack.config.js file.</p>
 
-<p>/app/webpack.config.js</p>
+<p>/webpack.config.js</p>
 
 <pre><code class="language-js">module.exports = {  
 /* context, entry, output */
@@ -880,7 +880,7 @@ var appModule = require('../index');
 
 <p>As before, we provide a loader object with a pattern matching test case. We'll exclude compiling packages.</p>
 
-<p>/app/webpack.config.js</p>
+<p>/webpack.config.js</p>
 
 <pre><code class="language-js">loaders: [  
 {

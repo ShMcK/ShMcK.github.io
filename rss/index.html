@@ -1,0 +1,1596 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[ShMcK]]></title><description><![CDATA[JavaScript Web Dev in Korea]]></description><link>http://localhost:2368/</link><generator>Ghost 0.6</generator><lastBuildDate>Wed, 15 Apr 2015 05:27:55 GMT</lastBuildDate><atom:link href="http://localhost:2368/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Webpack & Angular: Part 3]]></title><description><![CDATA[<h5 id="part3">Part 3</h5>
+
+<h1 id="6waystousewebpackrequirewithangular">6 Ways to use Webpack Require with Angular</h1>
+
+<p>For some reason, Webpack &amp; Angular reminds me of late 90s Acne commercials.</p>
+
+<blockquote>
+  <p>It keeps your code: clean, clear &amp; under control</p>
+</blockquote>
+
+<p>What a terrible way to start a blog post, but I'll stick with it. No regrets.</p>
+
+<p>In <a href="http://shmck.com/webpack-angular-part-1">Part</a></p>]]></description><link>http://localhost:2368/webpack-angular-part-3/</link><guid isPermaLink="false">b441f294-d947-46c5-91ad-2d3f80b417a2</guid><dc:creator><![CDATA[Shawn McKay]]></dc:creator><pubDate>Wed, 15 Apr 2015 02:37:27 GMT</pubDate><content:encoded><![CDATA[<h5 id="part3">Part 3</h5>
+
+<h1 id="6waystousewebpackrequirewithangular">6 Ways to use Webpack Require with Angular</h1>
+
+<p>For some reason, Webpack &amp; Angular reminds me of late 90s Acne commercials.</p>
+
+<blockquote>
+  <p>It keeps your code: clean, clear &amp; under control</p>
+</blockquote>
+
+<p>What a terrible way to start a blog post, but I'll stick with it. No regrets.</p>
+
+<p>In <a href="http://shmck.com/webpack-angular-part-1">Part 1</a> &amp; <a href="http://shmck.com/webpack-angular-part-2">Part 2</a> we prepared setting up the project, all for this moment. Let's take advantage of using Webpack &amp; Angular for creating modular code.</p>
+
+<h2 id="whatisrequired">What is Required</h2>
+
+<p>In this demo we'll keep it simple and make a navbar directive, looking at the different ways of using <code>require</code>. </p>
+
+<h3 id="1requiremodulename">1. require('module').name</h3>
+
+<p>First of all, we'll need a module for handling our layout directives.</p>
+
+<p>/app/core/layout.js</p>
+
+<pre><code class="language-js">export default angular.module('app.layout', [])  
+</code></pre>
+
+<p>We can simply require the layout by its <code>(path).name</code>, allowing us to change module names at any time. <br>
+Just make the loaded module a dependency.</p>
+
+<p>/app/index.js</p>
+
+<pre><code class="language-js">module.exports = angular.module('app', [  
+  /* 3rd party */
+  'lumx',
+  /* modules */
+  require('./core/layout').name
+]);
+</code></pre>
+
+<h3 id="2modulardirectivenames">2. Modular Directive Names</h3>
+
+<p>This makes it easy to change directive names in separate files with ease.</p>
+
+<p>Let's start by setting up the navbar template.</p>
+
+<p>/app/core/nav/nav.html</p>
+
+<pre><code class="language-html">&lt;header class="header bgc-light-blue-600" ng-cloak&gt;  
+&lt;!-- Get the app info and put it in the navbar on the left --&gt;  
+  &lt;h1 class="main-logo"&gt;
+    &lt;a href="/" class="main-logo__link" lx-ripple="white"&gt;
+      &lt;span class="main-nav--title"&gt;{{::nav.app.title}} &lt;/span&gt;
+      &lt;span class="main-nav--version"&gt;v{{::nav.app.version}}&lt;/span&gt;
+    &lt;/a&gt;
+  &lt;/h1&gt;
+&lt;!-- Loop over the links and add them to the navbar on the right --&gt;  
+  &lt;nav class="main-nav main-nav--lap-and-up"&gt;
+    &lt;ul&gt;
+      &lt;li ng-repeat="n in nav.app.links"&gt;
+        &lt;a href="{{::n.link}}" class="main-nav__link" lx-ripple="white"&gt;
+          {{::n.text}}&lt;/a&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/nav&gt;
+&lt;/header&gt;  
+</code></pre>
+
+<p>Add some style: </p>
+
+<p>/app/core/nav/nav.scss</p>
+
+<pre><code class="language-scss">.header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 999;
+  height: 60px;
+  padding: 12px;
+  color: white;
+  background-color: #4fc1e9;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+</code></pre>
+
+<p>For the full <code>nav.scss</code> file, get it on <a href="https://github.com/ShMcK/WebpackAngularDemos/blob/master/Part3/app/core/nav/nav.scss">Github</a>. This is a short/ugly version.</p>
+
+<p>Next add the directive &amp; controller. Don't be confused, in this case my controller uses ES6 classes.</p>
+
+<p>/app/core/nav/nav.js</p>
+
+<pre><code class="language-js">class NavCtrl {  
+  constructor() {
+    this.app = {
+      title: 'Module Loaders',
+      version: '0.3.0',
+      links: [{
+        text: 'Webpack',
+        link: 'http://webpack.github.io'
+      }, {
+        text: 'Require.js',
+        link: 'http://requirejs.org/'
+      }, {
+        text: 'Jspm',
+        link: 'http://jspm.io/'
+      }]
+    };
+  }
+}
+export default () =&gt; {  
+  require('./nav.scss');  // load styles for the component
+  return {
+    controller: NavCtrl,
+    controllerAs: 'nav',
+    templateUrl: 'app/core/nav/nav.html'
+  };
+};
+</code></pre>
+
+<p>Notice the directive was never named. You really only need to name it once, on its angular.module.</p>
+
+<p>/app/core/layout.js</p>
+
+<pre><code class="language-js">export default angular.module('app.layout', [])  
+  .directive('lumxNavbar', require('./nav/nav');
+</code></pre>
+
+<p>This way, name changes remain very flexible even between files. </p>
+
+<p>Add the directive to <code>index.html</code> and you should be able to see our working navbar.</p>
+
+<p>/app/index.html</p>
+
+<pre><code class="language-html">&lt;body&gt;  
+&lt;lumx-navbar&gt;&lt;/lumx-navbar&gt;  
+&lt;!-- ... --&gt;  
+</code></pre>
+
+<p>Nice!</p>
+
+<h3 id="3requiretemplates">3. require(templates)</h3>
+
+<p>This <code>lumxNavbar</code> templateUrl doesn't allow us to move things around very much. And the path is already getting long: <code>app/core/nav/nav.html</code>.</p>
+
+<p>We can simplify this with the <a href="https://github.com/webpack/raw-loader"><code>raw-loader</code></a>. Install it as a dev dependency.</p>
+
+<p><code>npm install -D raw-loader</code></p>
+
+<p>Add another loader to our <code>app/webpack.config.js</code> file.</p>
+
+<pre><code class="language-js">{
+    test: /\.html/,
+    loader: 'raw'
+}
+</code></pre>
+
+<p>Note: Restart the webpack-dev-server for any config changes to take effect. <br>
+And now we can require html files using relative paths, this makes it much easier to move folders around.</p>
+
+<p>/app/core/nav/nav.js</p>
+
+<pre><code class="language-js">/* old templateUrl: 'app/core/nav/nav.html' */
+template: require('./nav.html')  
+</code></pre>
+
+<h3 id="4requirejson">4. require(json)</h3>
+
+<p>By now you're probably getting the hang of loaders. Just to be sure, let's load some json, get the <a href="https://github.com/webpack/json-loader"><code>json-loader</code></a>.</p>
+
+<p><code>npm install -D json-loader</code></p>
+
+<p>Add it to the <code>webpack.config.js</code>.</p>
+
+<p>//webpack.config.js</p>
+
+<pre><code class="language-js">{
+    test: /\.json/,
+    loader: 'json'
+}
+</code></pre>
+
+<p>We can put all of our main data into an <code>index.json</code> file, so when we make frequent navbar changes in the future, we won't have to dive into the nested <code>/app/core/nav/nav</code>.</p>
+
+<p>/app/index.json</p>
+
+<pre><code class="language-json">{
+  "title": "Module Loaders",
+  "version": "0.3.0",
+  "links": [{
+    "text": "Webpack",
+    "link": "http://webpack.github.io"
+  }, {
+    "text": "Require.js",
+    "link": "http://requirejs.org/"
+  }, {
+    "text": "Jspm",
+    "link": "http://jspm.io/"
+  }]
+}
+</code></pre>
+
+<p>Let's require this file in <code>nav.js</code></p>
+
+<p>/app/core/nav/nav.js</p>
+
+<pre><code class="language-js">class NavCtrl {  
+  constructor() {
+    this.app = require('../../index.json');
+  }
+}
+</code></pre>
+
+<p>But what if we move the <code>nav</code> folder around? Wouldn't an absolute path to <code>app/index.json</code> be more useful?</p>
+
+<p>Luckily, with webpack we can use both.</p>
+
+<h3 id="5requireabsoluterelativepaths">5. require(absolute &amp; || relative paths)</h3>
+
+<p>A relative path points to files relative to the current directory.  </p>
+
+<pre><code>parent.js  
+├── file.js
+│   ├── folder
+│   │       └──child.js
+</code></pre>
+
+<ul>
+<li>Parent <code>../parent.js</code></li>
+<li>At the same level <code>./file.js</code></li>
+<li>Nested <code>./folder/child.js</code></li>
+</ul>
+
+<p>But if you want to move the <code>folder</code> or <code>child.js</code> around, the path will break. </p>
+
+<p>Sometimes a relative path is best, but other times it's better to use an absolute path.</p>
+
+<p>To use absolute paths with Webpack, we must first tell <code>webpack.config</code> our absolute root.</p>
+
+<p>/app/webpack.config.js</p>
+
+<pre><code class="language-js">module.exports = {  
+  /* ... */
+  resolve: {
+    root: __dirname + '/app'
+  }
+};
+</code></pre>
+
+<p>Now we can point to our <code>index.json</code> file in a much cleaner way. <br>
+Note: Again, you'll have to restart the webpack-dev-server for any config changes to take effect. </p>
+
+<pre><code class="language-js">class NavCtrl {  
+  constructor() {
+    /* old this.app = require('../../index.json'); */
+    this.app = require('index.json');
+  }
+}
+</code></pre>
+
+<h3 id="6ifconditionrequiremodule">6. if (condition) { require('module') }</h3>
+
+<p>Say we want to run some angular optimizations, but only during production. Normally this would require a separate code base, but with Webpack we can nest modules within if statements.</p>
+
+<p>For example, with ES6 modules, we can only <code>import</code> files at the top of the file. They cannot be wrapped in any blocks. Webpack's require is much more flexible.</p>
+
+<p>The goal: if (mode === production) { load production optimizations }.</p>
+
+<p>/app/core/config/production.js</p>
+
+<pre><code class="language-js">export default (appModule) =&gt; {  
+  appModule.config(($compileProvider, $httpProvider) =&gt; {
+    /* less watchers from console debugging: https://docs.angularjs.org/guide/production */
+    $compileProvider.debugInfoEnabled(false); 
+    /* process multiple responses @ same time: https://docs.angularjs.org/api/ng/provider/$httpProvider */
+    $httpProvider.useApplyAsync(true);
+  });
+};
+</code></pre>
+
+<p>Here we're loading the root <code>appModule</code> and providing it with some config optimizations.</p>
+
+<p>Let's put in an if(){} statement to load <code>production.js</code> only when we are using production mode.</p>
+
+<p>/app/core/bootstrap.js</p>
+
+<pre><code class="language-js">require('./vendor.js')();  
+var appModule = require('../index');  
+if (MODE.production) { // jshint ignore:line  
+  require('./config/production')(appModule);
+}
+angular.element(document).ready(() =&gt; {  
+  angular.bootstrap(document, [appModule.name], {
+    //strictDi: true
+  });
+});
+</code></pre>
+
+<p>Notice a few optimizations using MODE.production. But where does MODE come from? We can let webpack know.</p>
+
+<p>/app/webpack.config.js</p>
+
+<pre><code class="language-js">module.exports = {  
+/* ... */
+plugins: [  
+    new webpack.DefinePlugin({
+      MODE: {
+        production: process.env.NODE_ENV === 'production'
+      }
+    })
+  ]
+}
+</code></pre>
+
+<p>Production mode can now be called when declare the <code>NODE_ENV=production</code>.</p>
+
+<pre><code class="language-shell">NODE_ENV=production node node_modules/.bin/webpack-dev-server --content-base app  
+</code></pre>
+
+<p>This method can also be used for loading <code>angular-mocks</code> during <code>MODE.test</code>, etc.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Webpack's require gives you a lot more flexibility for building modular apps.</p>
+
+<p>Again, check out the codebase on <a href="https://github.com/ShMcK/WebpackAngularDemos">Github</a>.</p>
+
+<p>If you have any suggestions or other uses, post a comment below.</p>]]></content:encoded></item><item><title><![CDATA[Webpack & Angular: Part 2]]></title><description><![CDATA[<h5 id="part2">Part 2</h5>
+
+<h1 id="complexwebpackdependencies">Complex Webpack Dependencies</h1>
+
+<p>If you're unfamiliar with Webpack, you might want to checkout <a href="http://shmck.com/webpack-angular-part-1">Part 1</a> of this Article on setting up a project with Webpack. This demo will continue from the previous article's <a href="https://github.com/ShMcK/WebpackAngularDemos/tree/master/Part1">code-base</a>.</p>
+
+<p>In this article we'll look at loading different types of dependencies: scripts, styles, fonts,</p>]]></description><link>http://localhost:2368/webpack-angular-part-2/</link><guid isPermaLink="false">fdbf16ae-8929-4a47-be85-146a1cb898d1</guid><dc:creator><![CDATA[Shawn McKay]]></dc:creator><pubDate>Wed, 15 Apr 2015 02:37:15 GMT</pubDate><content:encoded><![CDATA[<h5 id="part2">Part 2</h5>
+
+<h1 id="complexwebpackdependencies">Complex Webpack Dependencies</h1>
+
+<p>If you're unfamiliar with Webpack, you might want to checkout <a href="http://shmck.com/webpack-angular-part-1">Part 1</a> of this Article on setting up a project with Webpack. This demo will continue from the previous article's <a href="https://github.com/ShMcK/WebpackAngularDemos/tree/master/Part1">code-base</a>.</p>
+
+<p>In this article we'll look at loading different types of dependencies: scripts, styles, fonts, etc. using Webpack. We'll also compare and contrast loading modules from NPM &amp; Bower.</p>
+
+<h2 id="lumx">LumX</h2>
+
+<p><a href="http://ui.lumapps.com/">LumX</a> is a great Material Design based CSS Framework built for Angular. </p>
+
+<p>I would argue LumX looks better in both style and code-style when compared to <a href="https://material.angularjs.org/">angular-material</a>. Again, that's largely a matter of opinion. </p>
+
+<p>LumX will make a good example as it comes with a lot of different types of dependencies: scripts, styles, fonts. Let's see how Webpack can combine them into a single <code>bundle.js</code> file. </p>
+
+<h2 id="bowersetup">Bower Setup</h2>
+
+<p>Make a <code>bower.json</code> file. </p>
+
+<pre><code class="language-shell">bower init  
+</code></pre>
+
+<p>Get some practice pressing enter really fast and agree to all the defaults.</p>
+
+<p>Create a file called <code>.bowerrc</code> in the root. This will move all our downloaded bower components into the specified directory.</p>
+
+<pre><code class="language-json">{
+  "directory": "app/bower_components"
+}
+</code></pre>
+
+<p>We're going to need <code>lumx</code>, install it.</p>
+
+<pre><code class="language-shell">bower install --save lumx  
+</code></pre>
+
+<p>We should let Angular know we're going to be using Lumx.</p>
+
+<p>/app/index.js</p>
+
+<pre><code class="language-js">module.exports = angular.module('app', [  
+  'lumx'
+]);
+</code></pre>
+
+<p>LumX comes with a party of dependencies. Look in <code>app/bower_components</code> and you'll see them all. </p>
+
+<pre><code>bower_components  
+├── angular
+├── bourbon            // Sass mixins
+├── jquery
+├── lumx                
+├── mdi                // Material Design Icons
+├── moment             // time
+└── velocity            // jQuery animations
+</code></pre>
+
+<p>Bad news at this point.</p>
+
+<blockquote>
+  <p>Webpack Prefers NPM over Bower.</p>
+</blockquote>
+
+<p>Don't worry, it'll work out.</p>
+
+<h2 id="npmvsbower">NPM vs. Bower</h2>
+
+<p>It's true, Webpack can handle both CommonJS &amp; AMD (asynchronous) modules. But Webpack has a preference: CommonJS. </p>
+
+<p>Let's compare NPM and Bower for a minute.</p>
+
+<p>NPM has nested dependencies, meaning that you can have different packages all loading different versions of <code>lodash</code> at the same time. It's very specific. </p>
+
+<p>Bower, on the other hand, flattens dependencies. As such, it is often used on the front-end because, well, obviously, it isn't ideal to have 3 versions of jQuery loaded every time you visit a webpage.</p>
+
+<p>Anyway, that information probably wasn't very helpful, but it's nice to know. To the point:</p>
+
+<p>NPM and Bower aren't the same, and Webpack prefers NPM (CommonJS). According to the Docs:</p>
+
+<blockquote>
+  <p>In many cases modules from npm are better than the same module from 
+  bower. Bower mostly contain only concatenated/bundled files which
+   are:</p>
+  
+  <p>More difficult to handle for webpack
+  More difficult to optimize for webpack
+  Sometimes only useable without a module system
+  So prefer to use the CommonJs-style module and let webpack build it.
+  <a href="http://webpack.github.io/docs/usage-with-bower.html">Source</a>. </p>
+</blockquote>
+
+<p>Luckily most packages have NPM &amp; Bower equivalents, though there doesn't seem to be much interest in making LumX an NPM module. See the <a href="https://github.com/lumapps/lumX/issues/74">open issue</a> and comment about how much you want more NPM! </p>
+
+<p>Let's get emotional now and get rid of all of our Bower Lumx dependencies. If it's not NPM, it deserves a subtle level of disgust.</p>
+
+<pre><code>app/bower_components  
+├── bourbon    
+└── lumx
+</code></pre>
+
+<p>If you want to keep them from coming back, go into <code>bower_components/lumx/bower.json</code> and delete the dependencies. However, you'll just have to do this again if you update LumX in the future.</p>
+
+<p>From here on in, we're going to try to NPM almost everything. </p>
+
+<h2 id="npmnpm">NPM! NPM!</h2>
+
+<p>Now let's NPM install the dependencies we just deleted from Bower.</p>
+
+<pre><code class="language-json">                               /* NPM Package Name */
+"dependencies": {               ====================
+    "angular": "latest",        // angular
+    "jquery": "latest",            // jquery
+    "velocity": "latest",        // velocity-animate
+    "moment": "latest",            // moment
+    "bourbon": "latest",        // node-bourbon (not necessary)
+    "mdi": "1.0.8-beta"            // mdi
+  }
+</code></pre>
+
+<p>As you can see, there really are easy NPM equivalents. Install the dependencies.</p>
+
+<pre><code class="language-shell">npm install --save angular jquery velocity-animate moment mdi  
+</code></pre>
+
+<h3 id="requirenpm_module">Require(NPM_Module)</h3>
+
+<p>It should still work. Now let's load some primary NPM dependencies in a file we'll call <code>vendor.js</code>.</p>
+
+<p>/app/core/vendor.js</p>
+
+<pre><code class="language-js">module.exports = function () {  
+    /* must be in order */
+  require('jquery');
+  require('velocity-animate');
+  require('angular');
+};
+</code></pre>
+
+<p>LumX seeks a few dependencies as globals, so we'll have to change this a little.</p>
+
+<p><code>global</code> attaches a value to the global context, likely the browser window. </p>
+
+<p>/app/core/vendor.js</p>
+
+<pre><code class="language-js">module.exports = function () {  
+global.$ = global.jQuery = require('jquery');   // $ for Lumx, jQuery for velocity  
+  require('velocity-animate');
+  require('angular');
+  global.moment = require('moment');            // for LumX
+  };
+</code></pre>
+
+<h3 id="requirebower_component">Require(Bower_Component)</h3>
+
+<p>We'll have to inject some dependencies into LumX to get it to load properly. For this we need the <a href="https://github.com/webpack/imports-loader"><code>imports-loader</code></a>.</p>
+
+<p><code>npm install -D imports-loader</code></p>
+
+<p>Now we can require Lumx, even though it is a Bower package. </p>
+
+<pre><code class="language-js">module.exports = function () {  
+global.$ = global.jQuery = require('jquery');  
+  require('velocity-animate');
+  require('angular');
+  global.moment = require('moment');
+  require('imports?angular!../bower_components/lumx/dist/lumx.js');
+  };
+</code></pre>
+
+<p><code>imports?</code> tells webpack to use the imports-loader, and <code>angular!</code> says to inject angular into the file. You could also inject jQuery, but it's already global.</p>
+
+<p>There is probably an easier to way load Bower packages, if you know how, please post in the comments. This worked for me.</p>
+
+<p>Note: another possible suggestion would be to load Lumx as an NPM module using <a href="https://github.com/eugeneware/debowerify"><code>debowerify</code></a>, as posted by Mallim <a href="https://github.com/lumapps/lumX/issues/74">here</a>. I plan to explore this option later. </p>
+
+<h3 id="requirestyles">Require(styles)</h3>
+
+<p>LumX depends on a Bourbon Sass mixins which also have an NPM equivalent: <code>node-bourbon</code>. However, LumX requires them using a relative path within the <code>bower_components</code> folder, so it's better just to keep the Bower Bourbon file.</p>
+
+<p>Style sheets can be loaded using <code>require('.path/to/_lumx.scss')</code>, as in the <a href="http://shmck.com/webpack-angular-part-1">previous article</a> but due to the cascading nature of stylesheets, it's likely better to keep them in a root <code>index.scss</code> file. Simply import the Lumx styles.</p>
+
+<p>/app/index.scss</p>
+
+<p><code>@import './bower_components/lumx/dist/scss/_lumx';</code></p>
+
+<h3 id="requirefontsicons">Require(Fonts &amp; Icons)</h3>
+
+<p>We'll need another loader for fonts &amp; icons. Install the <a href="https://github.com/webpack/file-loader"><code>file-loader</code></a>.</p>
+
+<p><code>npm install -D file-loader</code></p>
+
+<p>Add the loader to your webpack.config file and tell it to grab anything that looks like a font.</p>
+
+<p>/app/webpack.config.js</p>
+
+<pre><code class="language-js">{
+    test: /\.(woff|woff2|ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+    loader: 'file-loader?name=res/[name].[ext]?[hash]'
+}
+</code></pre>
+
+<p>Load up the Material Design Icons. The <code>materialdesignicons.scss</code> will point to our font files, which will get loaded by the file-loader.</p>
+
+<p>/app/core/vendor.js</p>
+
+<pre><code class="language-js">/* Styles */
+  require('../index.scss');
+  require('../../node_modules/mdi/scss/materialdesignicons.scss');
+</code></pre>
+
+<p>Create a test to see if icons and fonts are loading in <code>index.html</code>.</p>
+
+<p>/app/index.html</p>
+
+<pre><code class="language-html">&lt;p class='fs-headline'&gt;Icon Test: &lt;i class="mdi mdi-twitter"&gt;&lt;/i&gt; @Sh_McK&lt;/p&gt;  
+</code></pre>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>We now have our LumX dependencies running: scripts, styles, fonts &amp; icons, oh my! </p>
+
+<p>We saw how Webpack can load different file formats, as well as handle different module types (NPM or Bower). Webpack prefers NPM.</p>
+
+<p>Checkout <a href="https://github.com/ShMcK/WebpackAngularDemos/tree/master/Part2">Github</a> for the full codebase.</p>
+
+<p>In <a href="http://shmck.com/webpack-angular-part-3">Part 3</a> we'll finally be able to take advantage of using Webpack with Angular for creating incredibly modular code.</p>]]></content:encoded></item><item><title><![CDATA[Webpack & Angular: Part 1]]></title><description><![CDATA[<h5 id="part1">Part 1</h5>
+
+<h1 id="gettingstarted">Getting Started</h1>
+
+<p>There are a lot of module loaders out there: Require.js, JSPM using System.js, to name a few. </p>
+
+<p>Eventually the JavaScript community will come around and land on a winning module loader. My guess is Webpack, or something very similar. </p>
+
+<p>Go with Webpack. Webpack provides</p>]]></description><link>http://localhost:2368/webpack-angular-part-1/</link><guid isPermaLink="false">cb5538e4-e1d4-402c-ae10-d24d742fe4c6</guid><dc:creator><![CDATA[Shawn McKay]]></dc:creator><pubDate>Wed, 15 Apr 2015 02:37:06 GMT</pubDate><content:encoded><![CDATA[<h5 id="part1">Part 1</h5>
+
+<h1 id="gettingstarted">Getting Started</h1>
+
+<p>There are a lot of module loaders out there: Require.js, JSPM using System.js, to name a few. </p>
+
+<p>Eventually the JavaScript community will come around and land on a winning module loader. My guess is Webpack, or something very similar. </p>
+
+<p>Go with Webpack. Webpack provides an elegant and multi-featured approach to module loading. It does everything I wanted it to do, and more. Really, a lot more. </p>
+
+<p>Let's try it out. We'll setup a project using Webpack, including ES6 transpiling &amp; Sass loading. </p>
+
+<p>Free free to load the <a href="https://github.com/ShMcK/WebpackAngularDemos/tree/master/Part1">basic project from Github</a>.</p>
+
+<h2 id="filesetup">File Setup</h2>
+
+<p>File Structure:</p>
+
+<pre><code>root  
+├── app
+│   ├── bower_components
+│   ├── core
+│   │       ├──bootstrap.js
+│   │       └──vendor.js
+│   │
+│   ├── index.html
+│   ├── index.scss
+│   └──index.js
+├── .jshintrc
+├── node_modules
+└── package.json
+</code></pre>
+
+<p>This should be the bare minimum required to check if everything is working.</p>
+
+<p>/app/index.html</p>
+
+<pre><code class="language-markup">&lt;!doctype html&gt;  
+&lt;html lang="en"&gt;  
+&lt;head&gt;  
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;Webpack &amp; Angular&lt;/title&gt;
+&lt;/head&gt;  
+&lt;body&gt;  
+&lt;p&gt;Angular is working: {{1 + 1 === 2}}&lt;/p&gt;  
+&lt;script src="bundle.js"&gt;&lt;/script&gt;  
+&lt;/body&gt;  
+&lt;/html&gt;  
+</code></pre>
+
+<p>/app/index.js</p>
+
+<pre><code class="language-js">alert('loaded!');  
+</code></pre>
+
+<h2 id="webpack">Webpack</h2>
+
+<h3 id="setup">Setup</h3>
+
+<p>Let's create a <code>package.json</code> file to get started.</p>
+
+<pre><code class="language-shell">npm init  
+</code></pre>
+
+<p>Agree to whatever defaults.</p>
+
+<p>We're going to need a few basic dev-dependencies to get started with webpack.</p>
+
+<pre><code class="language-shell">npm install -D webpack  
+</code></pre>
+
+<p>Webpack will also require a <a href="http://webpack.github.io/docs/configuration.html">webpack configuration file</a>: <code>webpack.config.js</code>. Make the file and add the following:</p>
+
+<p>/app/webpack.config.js</p>
+
+<pre><code class="language-js">'use strict';  
+var webpack = require('webpack'),  
+path = require('path');  
+// PATHS
+var PATHS = {  
+  app: __dirname + '/app',
+  bower: __dirname + '/app/bower_components'
+};
+module.exports = {  
+    // config goes here
+};
+</code></pre>
+
+<p>Webpack is a lot easier than it looks. You just need to provide an <code>entry</code> and an <code>output</code>. </p>
+
+<p>Notice <code>bundle.js</code> is the only script we needed to load in our <code>index.html</code>. Everything will go into that bundle. </p>
+
+<p>Later you can have multiple bundles for easy lazy-loading and code-splitting.</p>
+
+<p>/webpack.config.js</p>
+
+<pre><code class="language-js">module.exports = {  
+    context: PATHS.app,
+     entry: {
+           app: './index.js'
+    },
+    output: {
+        path: PATHS.app,
+        filename: 'bundle.js'
+    }
+}
+</code></pre>
+
+<p>We now have a module loader. </p>
+
+<p>Let's build our bundle in the terminal.</p>
+
+<pre><code class="language-shell">webpack  
+</code></pre>
+
+<p>This should create the <code>app/bundle.js</code> file. Check it out. It's mostly a bunch of <code>webpack__require</code> statements.</p>
+
+<h3 id="webpackdevserver">Webpack-Dev-Server</h3>
+
+<p><a href="http://webpack.github.io/docs/webpack-dev-server.html">Webpack-dev-server</a> is a quick and easy Node.js/Express/Socket.io app that creates your <code>bundle.js</code> file on the fly and reloads it on changes. </p>
+
+<p>Install it as a dev-dependency. </p>
+
+<pre><code class="language-shell">npm install -D webpack-dev-server  
+</code></pre>
+
+<p>But wait, there's more!</p>
+
+<h3 id="hotmode">Hot Mode</h3>
+
+<p>Hot mode = live-reload of modules. No need to reload the entire project on every change, just load what changed. It makes sense and it's awesome.</p>
+
+<p>It's not much work either. Update your webpack.config file.</p>
+
+<p>/webpack.config.js</p>
+
+<pre><code class="language-js">entry: {  
+    app: ['webpack/hot/dev-server', './index.js']
+  }
+</code></pre>
+
+<p>You may want to install <code>webpack-dev-server</code> globally. Otherwise you'll have to run it the long way: <code>node node_modules/.bin/webpack-dev-server --content-base app/ --hot</code></p>
+
+<p>Run it.</p>
+
+<pre><code class="language-shell">npm install -g webpack-dev-server  
+webpack-dev-server --content-base app/ --hot  
+</code></pre>
+
+<p>Open up <code>http://localhost:8080/webpack-dev-server/</code>. </p>
+
+<p>It's hot. </p>
+
+<p>/app/index.js</p>
+
+<pre><code class="language-js">alert('hot-loaded!');  
+</code></pre>
+
+<p>It updates amazingly fast. Again, unlike Gulp or Grunt, Webpack only needs to re-compile the module that changed. </p>
+
+<p>Targeted reloading might not be important to you now, but as your project grows in size &amp; complexity it becomes increasingly useful.</p>
+
+<h3 id="quickstart">Quick Start</h3>
+
+<p>If you're used to using Gulp or Grunt, you probably like the time saving <code>gulp serve</code>, <code>grunt serve</code> shortcuts for running your app.</p>
+
+<p>This can be accomplished with <code>package.json</code> <a href="https://docs.npmjs.com/misc/scripts">scripts</a>. </p>
+
+<p>/package.json </p>
+
+<pre><code class="language-json">"scripts": {
+    "start": "webpack-dev-server --content-base app --hot"
+  }
+</code></pre>
+
+<p>Now run <code>npm start</code>. Again, the app can be found at <code>localhost:8080/</code> by default, or <code>localhost:8080/webpack-dev-server</code> for the hot-module version.</p>
+
+<h4 id="bootstrapangular">Bootstrap Angular</h4>
+
+<p>I like to bootstrap Angular, rather than adding <code>ng-app="app"</code> into the html. </p>
+
+<p>/app/core/bootstrap.js</p>
+
+<pre><code class="language-js">/*jshint browser:true */
+'use strict';  
+// load Angular
+require('angular');  
+// load the main app file
+var appModule = require('../index');  
+// replaces ng-app="appName"
+angular.element(document).ready(function () {  
+  angular.bootstrap(document, [appModule.name], {
+    //strictDi: true
+  });
+});
+</code></pre>
+
+<p>Notice <code>require('angular')</code>? That replaces adding <code>&lt;script src="bower_components/angular/angular.min.js"&gt;</code>. No need for that, this is a module system.</p>
+
+<p>Also note that <code>appModule.name</code> will be taken from <code>index.js</code>, whatever its name might be: <code>angular.module('THISNAMEHERE', [])</code>.</p>
+
+<p>Make the app file: <code>index.js</code>.</p>
+
+<p>/app/index.js</p>
+
+<pre><code class="language-js">module.exports = angular.module('app', []);  
+</code></pre>
+
+<p>Finally, let's make <code>bootstrap.js</code> our new Webpack entry point.</p>
+
+<p>/app/webpack.config.js</p>
+
+<pre><code class="language-js">entry: {  
+    app: ['webpack/hot/dev-server', './core/bootstrap.js']
+  }
+</code></pre>
+
+<p>Run the app (<code>npm start</code>). If all went well, running the app you should see: "Angular is working: true" at <code>localhost:8080</code> or <code>localhost:8080/webpack-dev-server</code>.</p>
+
+<h4 id="adddependencies">Add Dependencies</h4>
+
+<p>Bootstrap will get messy if we keep loading all our dependencies in there. Let's load them in a separate file called <code>vendor.js</code>.</p>
+
+<p>/app/core/bootstrap.js</p>
+
+<pre><code class="language-js">require(./vendor')();                    // run an empty function  
+var appModule = require('../index');  
+</code></pre>
+
+<p>/app/core/vendor.js</p>
+
+<pre><code class="language-js">module.exports = function () {  
+    /* JS */
+    require('angular');
+};
+</code></pre>
+
+<p>This file will get longer later.</p>
+
+<h4 id="styles">Styles</h4>
+
+<p>Webpack doesn't just load JavaScript, it can load nearly anything we might need: styles, images, fonts, etc. </p>
+
+<p>It handles these different file formats using <a href="http://webpack.github.io/docs/using-loaders.html">loaders</a>. Here's <a href="http://webpack.github.io/docs/list-of-loaders.html">a list of available loaders</a>.</p>
+
+<p>Let's start with the Style, CSS, and Sass loaders and install them as dev-dependencies.</p>
+
+<pre><code class="language-shell">npm install -D style-loader css-loader sass-loader`  
+</code></pre>
+
+<p>Webpack can use a Regex test to determine which loader to use. Add this to your webpack.config.js file.</p>
+
+<p>/app/webpack.config.js</p>
+
+<pre><code class="language-js">module.exports = {  
+/* context, entry, output */
+ module: {
+    loaders: [
+      {
+        test: /\.scss$/,
+        loader: 'style!css!sass'
+      }
+    ]
+  }
+ };
+</code></pre>
+
+<p>Loaders process from right to left. Meaning that if a <code>.scss</code> file is required as in the example, it will follow this order: sass loader => css loader => style loader</p>
+
+<p>Run a quick test with a style sheet.</p>
+
+<p>/app/index.scss</p>
+
+<pre><code class="language-scss">body {  
+    background-color: red;
+}
+</code></pre>
+
+<p>Require the file.</p>
+
+<p>/app/core/vendor.js</p>
+
+<pre><code class="language-js">module.exports = {  
+    /* Styles */
+      require('../index.scss');
+  /* JS */
+  require('angular');
+ }
+</code></pre>
+
+<p>Take a look, <code>npm start</code>, the background should now be red. </p>
+
+<h4 id="es6loaders">ES6 Loaders</h4>
+
+<p>Webpack makes it easy to use compiled languages like ES6, TypeScript, CoffeeScript, etc. Let's write our app in ES6 and compile it to ES5/ES3. </p>
+
+<p>First we need some loaders. Install the dev-dependencies:</p>
+
+<p><code>npm install -D jshint-loader babel-loader ng-annotate-loader</code></p>
+
+<p>As before, we provide a loader object with a pattern matching test case. We'll exclude compiling packages.</p>
+
+<p>/app/webpack.config.js</p>
+
+<pre><code class="language-js">loaders: [  
+{
+    test: /\.js$/,
+   loader: 'ng-annotate!babel!jshint',
+   exclude: /node_modules|bower_components/
+}
+]
+</code></pre>
+
+<p>Webpack will take any required <code>.js</code> files, and run them right to left: jshint => babel => ng-annotate.</p>
+
+<p>Let's use an ES6 example to make sure everything is working.</p>
+
+<p>/app/index.js</p>
+
+<pre><code class="language-js">module.exports = angular.module('app', []);  
+// default params
+function printMessage (status='working') {  
+// let
+  let message = 'ES6';                    
+// template string           
+  console.log(`${message} is ${status}`);    
+}
+printMessage();  
+</code></pre>
+
+<p>Run the app, <code>npm start</code>, and you should see "ES6 is working" in the console.</p>
+
+<h4 id="removingjshinterrors">Removing JSHint Errors</h4>
+
+<p>You probably saw some warnings (in yellow) when you ran the app.</p>
+
+<p>You might want to remove these warnings from the console caused by jshint using a <code>.jshintrc</code> file. You can take <a href="https://github.com/johnpapa/angular-styleguide#js-hint">Jon Papa's recommended .jshintrc</a> or add the following:</p>
+
+<p>/.jshintrc</p>
+
+<pre><code class="language-json">{
+  "esnext": true,
+  "node": true,
+  "globals": {
+    "angular": true,
+    "console": true
+  }
+}
+</code></pre>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>When I made my first webpack app, I was left wondering:</p>
+
+<blockquote>
+  <p>What happened to the build stage?</p>
+  
+  <p>Where's the heavy lifting we need Grunt/Gulp for? </p>
+</blockquote>
+
+<p>But it's all in the few lines of code in that webpack.config file. The app is built everytime you run <code>webpack</code>, and built and updated on the fly when you run the <code>webpack-dev-server</code>. </p>
+
+<p>Everything goes in the bundle.js. It fits my criteria for a good module loader: it's simple and it works.</p>
+
+<p>Granted, this was a simple use case. We'll look at how Webpack handles more complicated cases in the <a href="http://localhost:2368/webpack-angular-part-1/">next post</a>, as we setup a project requiring <a href="http://ui.lumapps.com/">LumX</a>, a popular Material Design based CSS Framework for Angular.</p>]]></content:encoded></item><item><title><![CDATA[Why JavaScript isn't Popular in Korea]]></title><description><![CDATA[<p>The south. Before you ask, it's the south. I know there are no dumb questions, but yeah, it's South Korea we're talking about here.</p>
+
+<p>South Korea is known for its tech industry. Samsung. LG. Samsung, again. You're likely even reading this on a Korean made computer, monitor or phone. But</p>]]></description><link>http://localhost:2368/javascript-not-popular-in-korea/</link><guid isPermaLink="false">e26b7ee9-147d-4b17-a9ee-0d2d944d0201</guid><dc:creator><![CDATA[Shawn McKay]]></dc:creator><pubDate>Wed, 11 Mar 2015 15:43:02 GMT</pubDate><media:content url="http://localhost:2368/content/images/2015/03/angularKoreaLogo.png" medium="image"/><content:encoded><![CDATA[<img src="http://localhost:2368/content/images/2015/03/angularKoreaLogo.png" alt="Why JavaScript isn't Popular in Korea"><p>The south. Before you ask, it's the south. I know there are no dumb questions, but yeah, it's South Korea we're talking about here.</p>
+
+<p>South Korea is known for its tech industry. Samsung. LG. Samsung, again. You're likely even reading this on a Korean made computer, monitor or phone. But where Korea excels at hardware, they fall behind on the web. </p>
+
+<p>This is a country where online shopping has grown nearly ubiquitous. Online gaming has more than one 24-hour channel that people watch. A place where you file your tax return by simply clicking a few times online. And the connection is fast. Opportunity &amp; connectivity aren't the issue.</p>
+
+<p>It seems as if everyone is on a smart phone <em>all of the time</em>, yet few websites are responsive. C, C++ &amp; Java are the main in Korea, JavaScript the stranger. It's as if Korea skipped the web and went directly into mobile software.</p>
+
+<p>Have a look at a map of a recent AngularJS conference meetups. Notice the presence in East Asia, it's not entirely the timezone difference but largely a lack of interest.</p>
+
+<p><img src="http://localhost:2368/javascript-not-popular-in-korea/../content/images/2015/03/ng-conf-extended-map.png" alt="Why JavaScript isn't Popular in Korea"></p>
+
+<p>So what are the reasons why JavaScript - the most common and perhaps most popular programming language - lacks much ground in Korea?</p>
+
+<h2 id="1thebrowser">1. The Browser</h2>
+
+<p>What did the Korean web developer say when he was told he had to continue support for IE6? '아이이고!' That was a joke, and you know it was funny because I just told you. </p>
+
+<blockquote>
+  <p>OTL. </p>
+</blockquote>
+
+<p>Not an acronym. That's a guy bashing his head on the ground.</p>
+
+<p>Back to the browser. Browser usage in Asia can look quite different from the western world. </p>
+
+<blockquote>
+  <p><strong>Pop quiz</strong>: What do these names have in common:</p>
+</blockquote>
+
+<ul>
+<li>Qihoo360</li>
+<li>TencentQQ</li>
+<li>Sougou</li>
+<li>2345</li>
+<li>Cheetah</li>
+<li>UC</li>
+<li>Maxthon</li>
+</ul>
+
+<blockquote>
+  <p><strong>Answer</strong>: They are all browsers in China that are more popular than Firefox. </p>
+</blockquote>
+
+<p>Good news: in Korea the big players are the ones you might be used to: IE, Chrome, Firefox, Safari. </p>
+
+<p>Bad news: the big one is IE at about 70-80%. Not that IE10 or IE11 are bad, they're great. It's the older relatives that make the developers &amp; designers OTL. In fact, some JavaScript frameworks such as AngularJS 1.3 have already dropped IE8 testing support, leaving about 20% of Korean users out of luck.</p>
+
+<blockquote>
+  <p>Why IE?  Whyyyyyyy???</p>
+</blockquote>
+
+<p>The IE 'stranglehold' goes back to a 1999 Internet security law that guarantees that all online shopping must be done with IE. No joke. <a href="http://www.washingtonpost.com/world/asia_pacific/due-to-security-law-south-korea-is-stuck-with-internet-explorer-for-online-shopping/2013/11/03/ffd2528a-3eff-11e3-b028-de922d7a3f47_story.html">You still have to use ActiveX.</a>. In 2015. For web security.</p>
+
+<p>In other words, someone using a macbook running OSX can't buy anything online. Even with the big players, <a href="http://gmarket.co.kr">gmarket.co.kr</a>, owned by eBay, I can't buy anything on there without using an out-of-country credit card. Many major government, education and corporate websites just don't even work without IE.</p>
+
+<p>The IE situation has lead to an interesting situation: the normalization of website tech support. I once had someone help me with my online banking, which led to a 30 minute phone call with the sites tech support, trying to fix Windows, ActiveX &amp; IE issues. Though the whole operation seemed shocking to me, it was treated as shockingly normal.</p>
+
+<h2 id="2thegeography">2. The Geography</h2>
+
+<p>The geography of Korea helps explain a lot about why client-side frameworks aren't popular.</p>
+
+<p>First of all, you're never offline. High speed Internet still works on your phone when you're on the subway. Deep underground. Going through a mountain. </p>
+
+<p>Secondly, as in any major city, you're never far from a server. Yes, the country of Korea largely approximates the size and population density of a city. </p>
+
+<p>These two factors combined indicate server-side transfer speeds and connectivity are enough. Korean developers don't have to worry as much about users clicking on a button and nothing happening as they rarely face slow or dropped connections.</p>
+
+<h2 id="3thejob">3. The Job</h2>
+
+<p>Developer sounds like a great job. But not in Korea. Korean coders are largely over-worked, underpaid, and vastly under-appreciated. Many tech company offices look like the movie Office Space.</p>
+
+<p>As a result, there is a computer science brain drain in Korea where one of the main limiting factors is English fluency. It's hard to keep the best developers when heading overseas may reduce your work hours and double your salary. Rarely does picking up a second language pay so well.</p>
+
+<p>The language barrier also doubles as an impediment to learning new skills. Imagine how hard it would be if you had to learn Korean in order to study and keep up with the fast changing JavaScript world. Grunt / Gulp / Backbone / Ember / Angular / CSS / Sass / LESS / Compass / Stylus / React / Functional / Isomorphic / Reactive / Traceur / Babel / NPM / Bower / JSPM / EcmaScript2015 /OTL. It's overwhelming enough as it is. This is akin to the situation Korean developers face, while working longer hours with fewer incentives. My sympathies.</p>
+
+<p>Take away the light at the end of the tunnel, and coding and learning become a burden. It's no longer something you study on weekends for fun, hacking away on some dumb project for curiousities sake. </p>
+
+<h1 id="finalthoughts">Final Thoughts</h1>
+
+<p>JavaScript and the web have a bright future. I hope that light shines on Korea. If you're interested in promoting AngularJS in Korea, I've started a <a href="http://localhost:2368/javascript-not-popular-in-korea/www.meetup.com/AngularJS-Korea-Meetup/">meetup group</a> you should join.</p>
+
+<p><img src="http://localhost:2368/javascript-not-popular-in-korea/../content/images/2015/03/angkor-banner.jpg" alt="Why JavaScript isn't Popular in Korea"></p>
+
+<p>Now I could be wrong, and often am. There's nothing worse than an outsiders perspective on an insiders world, and having said that I am now officially immune to criticism. That's how the world works. If you have any corrections, let me know in the comments.</p>]]></content:encoded></item><item><title><![CDATA[Angular Forms Made Incredibly Easy]]></title><description><![CDATA[<p>A wise man once told me the key to success is to love something useful that everyone else hates to do. Though this is great advice for aspiring actors and art majors, not everyone needs to go out and study tax law. </p>
+
+<p>For me, I love forms. I love the</p>]]></description><link>http://localhost:2368/forms-in-angular-made-easy/</link><guid isPermaLink="false">184607e6-621b-42e6-a21e-deafe43f421f</guid><category><![CDATA[AngularJS]]></category><category><![CDATA[Forms]]></category><dc:creator><![CDATA[Shawn McKay]]></dc:creator><pubDate>Tue, 17 Feb 2015 10:49:03 GMT</pubDate><media:content url="http://localhost:2368/content/images/2015/02/Screen-Shot-2015-02-17-at-6-39-37-PM.png" medium="image"/><content:encoded><![CDATA[<img src="http://localhost:2368/content/images/2015/02/Screen-Shot-2015-02-17-at-6-39-37-PM.png" alt="Angular Forms Made Incredibly Easy"><p>A wise man once told me the key to success is to love something useful that everyone else hates to do. Though this is great advice for aspiring actors and art majors, not everyone needs to go out and study tax law. </p>
+
+<p>For me, I love forms. I love the idea that design can take the act of filling in information, something most people disdain, and transform it into an experience. Before you scoff, take a look some of these <a href="http://tympanus.net/codrops/tag/form/">examples of great forms at Codrops.com</a>.</p>
+
+<p>We'll look at how to make amazing forms using Angular Formly.</p>
+
+<h2 id="angularformly">Angular Formly</h2>
+
+<p><a href="https://github.com/formly-js/angular-formly">Angular-Formly</a> is an incredibly simple and flexible form building tool. You provide a JSON like object and it generates your forms. Getting started is easy, have a look:</p>
+
+<p>In your <strong>controller</strong>: </p>
+
+<pre><code class="language-javascript">$scope.formData = {
+    name: ''
+};
+$scope.formFields = [{
+    key: 'name',   // this goes into the model: $scope.formData.name
+    type: 'text',
+    templateOptions: {
+        label: 'Name',
+        required: true
+    }
+}];
+</code></pre>
+
+<p>In your <strong>view</strong>:</p>
+
+<pre><code class="language-markup">&lt;formly-form model="formData" formFields="formFields"&gt;&lt;/formly-form&gt;  
+</code></pre>
+
+<p>Dude. That just made a form. </p>
+
+<h1 id="angularformlyfeatures">Angular Formly Features</h1>
+
+<p>It has a ton of features, basically allowing you to do anything you could do in JS/HTML within a config object. Let's look at some:</p>
+
+<h3 id="focus">Focus</h3>
+
+<p>Start by focusing on the first field.  </p>
+
+<pre><code class="language-javascript">    templateOptions: {
+        focus: true
+    }
+</code></pre>
+
+<h3 id="expressionproperties">Expression Properties</h3>
+
+<p>Expression properties can be used to hide/show only relevent form information. This can be useful when users with specific criteria don't need to fill out all information. For example, I always have to fill out street name data although I live in Korea where streets don't have names.</p>
+
+<pre><code class="language-javascript">    expressionProperties: {
+        hide: 'model.country === "Korea"' 
+     }
+</code></pre>
+
+<p>Whew, no more of that.</p>
+
+<p>Expression properties can also be used to change the form based on user provided input. This example changes the label to the input value. Cool!</p>
+
+<pre><code class="language-javascript">    expressionProperties: {
+          'templateOptions.label': '$viewValue'
+         }
+</code></pre>
+
+<h3 id="templates">Templates</h3>
+
+<p>Angular Formly has templates for Bootstrap, Foundation, Ionic, LumX, and more (though some are in progress). We'll look at LumX, because that's the templates I've developed.</p>
+
+<p><a href="http://ui.lumapps.com/">LumX</a> is a great css framework built on <a href="http://www.google.com/design/spec/material-design/introduction.html">material design</a> principles. My recent project has been creating LumX templates to take advantage of angular-formly. Have a look at the <a href="https://formly-lumx.herokuapp.com/#/input">demo</a> &amp; checkout the <a href="https://github.com/formly-js/angular-formly-templates-lumx">github repo</a>.</p>
+
+<h3 id="easyvalidation">Easy Validation</h3>
+
+<p>With Angular-Formly, validation is treated as a template option, and thus it is different depending on the templates you select (if any).</p>
+
+<pre><code class="language-javascript ">    templateOptions: {
+        required: true
+    }
+</code></pre>
+
+<p>These options will make a field required. Easy stuff.</p>
+
+<h3 id="validators">Validators</h3>
+
+<p>Use a validator to check if your information is what you expect. Validators can be a function that returns true/false or a promise. Validators use the async validator pipeline in Angular.  </p>
+
+<pre><code class="language-javascript">    validators: {
+        specialEmail: function(modelValue, viewValue) {
+            return $timeout(function() {
+                 var fn = (modelValue || viewValue) === 'a@b.c' ? $q.when : $q.reject;
+              return fn();
+        }, 1000);
+   }
+</code></pre>
+
+<p>Then the notification can be added to validation.messages.</p>
+
+<pre><code class="language-javascript">    validation: {
+        messages: [{
+            name: 'specialEmail',
+            message: 'Sorry, that wasn't the correct email address.'
+        }]
+    }
+</code></pre>
+
+<h3 id="ngdirectivevalidators">ng-directive Validators</h3>
+
+<p>Drop in an ng-directive for validation.  </p>
+
+<pre><code class="language-javascript">    ngModelAttrs: {
+        bound: {
+            'minlength': 4,
+            'maxlength': 10
+        }
+    },
+    validation: {
+        messsages: [{
+            name: 'minlength',
+            message: 'The field must be at least 4 characters.'
+        }, {
+            name: 'maxlength',
+            message: 'The field must be 10 or more characters.'
+        }]
+    }
+</code></pre>
+
+<h3 id="easyvalidationmessagenotification">Easy Validation Message Notification</h3>
+
+<p>Wrappers wrap a transcluded div around your form item. In LumX, you can use 'lx-wrapper-errors' for ng-message based notification.</p>
+
+<pre><code class="language-javascript">    wrapper: 'lx-wrapper-errors'
+</code></pre>
+
+<p>These notifications can be customized using validation messages.</p>
+
+<pre><code class="language-javascript">    validation: {
+        messages: [{
+            name: 'required',
+            message: 'Email is required.'
+        }]
+    }
+</code></pre>
+
+<p>Default messages can be setup in a template.</p>
+
+<h3 id="validationtimingoptions">Validation Timing Options</h3>
+
+<p>When to check validation is also something to consider.</p>
+
+<ul>
+<li>When a user leaves a field?</li>
+</ul>
+
+<p>This can be handled simply in angular-formly with ngModelOptions.</p>
+
+<pre><code class="language-javascript">    modelOptions: {
+        updateOn: blur
+    }
+</code></pre>
+
+<ul>
+<li>When a user immediately enters invalid information?</li>
+</ul>
+
+<pre><code class="language-javascript">    modelOptions: {
+        updateOn: keyup
+    }
+</code></pre>
+
+<ul>
+<li>500ms after a user enters invalid information?</li>
+</ul>
+
+<pre><code class="language-javascript">    modelOptions: {
+        updateOn: keyup,
+        debounce: {
+            keyup: 500
+        }
+    }
+</code></pre>
+
+<ul>
+<li>Any combination of above?</li>
+</ul>
+
+<h3 id="rejectinginvalidinformation">Rejecting Invalid Information</h3>
+
+<p>You can prevent invalid data from getting saved by setting allowInvalid to false.</p>
+
+<pre><code class="language-javascript">    modelOptions: {
+        allowInvalid: false
+    }
+</code></pre>
+
+<h3 id="addalinkorcontrollertoaformfield">Add a link or controller to a form field</h3>
+
+<pre><code class="language-javascript">     link: function(scope, el) {
+          console.log(scope, el);
+        },
+     controller: function($scope, $log) {
+        $log.info($scope);
+    }
+</code></pre>
+
+<h2 id="finalthoughts">Final Thoughts</h2>
+
+<p>Great forms don't have to be difficult. They don't even necessarily require a lot of code.</p>
+
+<p>Angular-Formly is powerful, fairly well documented and super easy to use. Angular-formly-templates-lumx is a great tool built on top of it. Putting all of your form fields into an object which can then be loaded via $http allows you to reduce your html and overall code bloat. Awesome!</p>
+
+<p>I'll try to get more advanced demos up on angular-formly-templates-lumx in the near future to show the full power of the angular-formly library.</p>]]></content:encoded></item><item><title><![CDATA[Comparing Angular 1.x & 2.0]]></title><description><![CDATA[<h3 id="theobsorneeffect">The Obsorne Effect</h3>
+
+<p>The Angular team faces a problem. How do you talk the great new features of Angular 2.0 under development without damaging use of the current 1.x? This effect is often called the <a href="http://en.wikipedia.org/wiki/Osborne_effect">Obsborne effect</a>, named after a 1980s computer company whose marketing contributed to putting</p>]]></description><link>http://localhost:2368/comparing-angular-1-x-2-0/</link><guid isPermaLink="false">7b73ab8b-e49c-4490-837e-9c58612201fb</guid><category><![CDATA[AngularJS]]></category><category><![CDATA[angular2.0]]></category><dc:creator><![CDATA[Shawn McKay]]></dc:creator><pubDate>Tue, 17 Feb 2015 03:50:27 GMT</pubDate><content:encoded><![CDATA[<h3 id="theobsorneeffect">The Obsorne Effect</h3>
+
+<p>The Angular team faces a problem. How do you talk the great new features of Angular 2.0 under development without damaging use of the current 1.x? This effect is often called the <a href="http://en.wikipedia.org/wiki/Osborne_effect">Obsborne effect</a>, named after a 1980s computer company whose marketing contributed to putting the company out of business. In short, the better 2.0 sounds, the less people will want to start or continue projects built with 1.x.</p>
+
+<p>But the secrets out. Angular 2.0 is available on <a href="https://github.com/angular/angular">github</a> and you can play around with it using <code>npm install angular@2.0.0-alpha.6</code>. Keep in mind, it is NOT ready for production and subject to (likely a lot of) change.</p>
+
+<h1 id="angular1xvs20">Angular 1.x vs. 2.0</h1>
+
+<p>It's important to see why the Angular team are making such drastic changes. Angular isn't just trying to keep up, they're pushing forward a lot of standards, enhancements and better app architecture. </p>
+
+<p>The more you look at the elegance of 2.0, the more 1.x looks like a bunch of hacks strewn together and prefixed with 'ng-'. While 1.x was all about adding features and getting stuff done, 2.x should have a simpler API while simultaneously targeting performance &amp; web standards. </p>
+
+<hr>
+
+<h4 id="2waydatabinding">2-way data binding</h4>
+
+<p><strong>2.0:</strong> 1-way data binding</p>
+
+<p>In larger apps, 2-way binding can develop into spaghetti. Angular 2.0 will use a concept called <a href="http://en.wikipedia.org/wiki/Directed_acyclic_graph">Directed Acyclic Graph</a>, a kind of unidirectional architecture.</p>
+
+<p>This sounds a lot like what React is doing right with <a href="https://facebook.github.io/flux/">Flux</a>. This kind of architecture can be used with Angular as well. <a href="http://victorsavkin.com/post/99998937651/building-angular-apps-using-flux-architecture">Read more</a>.</p>
+
+<p>Though 2-way binding will disappear, Misko has stated that Angular 2.0 may function in a way that data bindings appear 2-way, though behind the scenes data flows 1-way.</p>
+
+<hr>
+
+<h3 id="watchers">watchers</h3>
+
+<p><strong>2.0:</strong> <a href="https://github.com/btford/zone.js/">Zone.js</a></p>
+
+<p>$scope.$watch, $scope.$apply, $timeout. No more. Whew! Using these was part of the reason Angular 1.x had such a huge learning curve.</p>
+
+<p>Zone.js helps Angular to do change detection automatically. This sounds similar to React's <a href="http://facebook.github.io/react/docs/reconciliation.html">reconciliation</a> diffing algorithm.</p>
+
+<p>The Angular team explained change detection is now faster, uses less memory and less power. Change detection may improve further with <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/observe">object.observe</a> coming to other browsers (currently just Chrome). </p>
+
+<p>Zone.js also supports using immutable objects for even faster processing. This is because the compiler can assume the data objects won't change and optimize.</p>
+
+<p>[edit March 11, 2015]
+For a more indepth look at how change detection will work in Angular 2.0 watch <a href="https://www.youtube.com/watch?v=jvKGQSFQf10&amp;list=PLOETEcp3DkCoNnlhE-7fovYvqwVPrRiY7">Change Detection Reinvented by Victor Sakvin @ngConf</a>.</p>
+
+<hr>
+
+<h3 id="componentcommunication">component communication</h3>
+
+<p><strong>2.0:</strong> Instead of $broadcast &amp; $emit, 2.0 has a few differences: 
+1) You can emit messages in the DOM, rather than the scope. <br>
+2) You can put components inside eachother and link them directly. This may be similar to components using isolate scope now.</p>
+
+<hr>
+
+<h3 id="dom">DOM</h3>
+
+<p><strong>2.0:</strong> In many ways, Angular 2.0 seems to handle DOM style manipulation with something similar to React.js's virtual DOM, which they referred to in a recent presentation as the "view". In response to a recent question about 'Angular Native?', Misko mentioned that this View could be run on a web worker or even potentially on native. </p>
+
+<hr>
+
+<h3 id="scope">scope</h3>
+
+<p>Data will be organized in a tree like architecture.</p>
+
+<p>Angular 2.0 will also use Web Components standards. For example, the shadow DOM could be used to create an isolate scope. The Angular team explained that there is also a shadow DOM emulated mode (for browsers not support web component features yet.) This would allow additional options for isolating css styles as well. Cool! </p>
+
+<hr>
+
+<h3 id="modules">Modules</h3>
+
+<p><strong>2.0:</strong> 2.0 is of course going to use ES6 module syntax. On top of that, Angular 2.0 is expected to have 'amazing' dependency injection with lazy-loading. Rather than using singletons, 2.0 will have a kind of hierchical data structure likely offers inheritance features. You will also be able to control the lifetime of modules such as services.</p>
+
+<hr>
+
+<h3 id="directives">Directives</h3>
+
+<p>[edit March 11, 2015]</p>
+
+<p><strong>2.0:</strong> <del>Now called "Components"</del> Still called directives. In Angular 1.x, directives are available everywhere on instantiation, creating name-space overlap problems for large projects. In 2.0, you must import your directives which avoids this problem.</p>
+
+<p>Although I'm not clear on how it works, Angular 2.0 will create a prototypical template of all potential bindings to optimize for compiler speed.</p>
+
+<p>There are currently three types of directives:</p>
+
+<ul>
+<li><p>Component Directive - Made up of a view &amp; controller. What we might recognize as a .directive style directive.</p></li>
+<li><p>Decorator Directive - adds behavior to a directive. Similar to the ng-directive attributes you add, like ng-click or ng-show.</p></li>
+<li><p>Viewport Directive - handles html transformations as in ng-if or ng-repeat. </p></li>
+</ul>
+
+<hr>
+
+<h3 id="router">Router</h3>
+
+<p><strong>2.0:</strong> Check it out: <a href="https://github.com/angular/router">2.0 router</a>. It should be back-ported to 1.x as well, though without the feature of lazy-loading which was deemed unstable for 1.x. </p>
+
+<p><em>[edit: March 8, 2015]</em></p>
+
+<p>Brian Ford gave a <a href="https://www.youtube.com/watch?v=vecg70fPDFw&amp;list=PLOETEcp3DkCoNnlhE-7fovYvqwVPrRiY7">presentation about the new router</a> @ng-conf that's worth a watch. In it he describes how the new router can use both Angular 1.x &amp; 2.x modules, allowing teams to gradually change from one router to the other. He also proposed a possible migration path from the popular ui-router.</p>
+
+<p>Ui-router is great, but lacks some important features. For example, resolve can only pass data before a page is loaded. What if you want to check if a users current data is saved in a form before routing to the next page? Ui-router's resolve is a one-time trigger. Instead, the new router will provide 'Lifecycle Hooks' that let you specify exactly when you want an action to take place.</p>
+
+<p>Component directives can be routed to using the new-angular-router. If this sounds crazy to you, you can already do something similar in angular 1.x by dropping controllers for directives and routing to a template. Check out this <a href="http://teropa.info/blog/2014/10/24/how-ive-improved-my-angular-apps-by-banning-ng-controller.html">example</a> for inspiration.</p>
+
+<hr>
+
+<h3 id="html">HTML</h3>
+
+<p><strong>2.0:</strong> Though the syntax looks very different, keep in mind that the differences have good reasons behind them. </p>
+
+<h5 id="ngdirectives">ng-directives</h5>
+
+<p>Components in the HTML are broken up into two types: (events) &amp; [properties]. They are wrapped in round or square brackets to help both humans and the computer differentiate and optimize for the two types.</p>
+
+<hr>
+
+<h6 id="events"><strong>(events)</strong></h6>
+
+<p>(events) refer to user initiated actions.</p>
+
+<table style="width:100%">  
+    <tr>
+        <th align="left">1.x</th>
+        <th align="left">2.0</th>
+    </tr>
+    <tr>
+        <td>ng-click</td>
+        <td>(click) (dbl-click)</td>
+    </tr>
+    <tr>
+        <td>ng-keyup</td>
+        <td>(keyup)</td>
+    </tr>
+</table>
+
+<hr>
+
+<h6 id="properties"><strong>[properties]</strong></h6>
+
+<p>[properties] now link directly into the DOM properties.</p>
+
+<table style="width:100%">  
+    <tr>
+        <th align="left">1.x</th>
+        <th align="left">2.0</th>
+    </tr>
+    <tr>
+        <td>ng-hide</td>
+        <td>[class:hidden]</td>
+    </tr>
+    <tr>
+        <td>ng-checked</td>
+        <td>[checked]</td>
+    </tr>
+</table>
+
+<hr>
+
+<h6 id="foreach"><strong>*foreach</strong></h6>
+
+<p>!foreach is the proposed replacement for ng-repeat.</p>
+
+<pre><code class="language-markup">&lt;ul&gt;  
+&lt;li *foreach="#item in itemService.items"&gt;&lt;/li&gt;  
+&lt;/ul&gt;  
+</code></pre>
+
+<hr>
+
+<h6 id="item"><strong>#item</strong></h6>
+
+<p>Items prefixed with a <strong>#</strong> can bind directly in the html. No more ng-model.  </p>
+
+<pre><code class="language-markup">&lt;input type="text" #userName /&gt;  
+</code></pre>
+
+<hr>
+
+<h6 id=""><strong>{{ }}</strong></h6>
+
+<p>Double curlys are still in 2.0. See! Not everything will change.</p>
+
+<hr>
+
+<h6 id="directivenames"><strong>directive names</strong></h6>
+
+<p>No more camelCase &amp; snake-case confusion. Now you specify the directive name in the component. Assuming Angular 2.0 follows web component standards, it will require a '-' in the name.  </p>
+
+<pre><code class="language-javascript">@Component {
+    selector: 'myApp-component'
+}
+</code></pre>
+
+<hr>
+
+<h1 id="finalthoughts">Final Thoughts</h1>
+
+<p>Angular 2.0 looks fantastic. It's not ready yet, but you can play around with it today. Checkout the <a href="https://github.com/angular/angular">github</a> for more. There are also some examples available, such as <a href="https://github.com/davideast/ng2do">ng2do</a>.</p>
+
+<p>[edit March 11, 2015]
+Definitely catch the keynotes from ng-conf <a href="https://www.youtube.com/watch?v=-dMBcqwvYA0&amp;list=PLOETEcp3DkCoNnlhE-7fovYvqwVPrRiY7">1</a> &amp; <a href="https://www.youtube.com/watch?v=QHulaj5ZxbI&amp;list=PLOETEcp3DkCoNnlhE-7fovYvqwVPrRiY7">2</a> as well as the fresh faced new <a href="https://angular.io/">angular.io</a> site.</p>
+
+<p>If you're looking to prepare for the learning curve, there are a few things you can do now.</p>
+
+<ul>
+<li>Try out Rob Eisenbergs new framework: <a href="http://aurelia.io/">Aurelia</a>. It's definitely worth a look.</li>
+<li>Learn more about <a href="http://webcomponents.org/">web components</a> and shadow DOM.</li>
+<li>Use ES6 - (now ES2015?) - with Angular 1.x. There's a great example using ES6 &amp; JSPM <a href="http://martinmicunda.com/2015/02/09/how-to-start-writing-apps-with-es6-angular-1x-and-jspm/">here</a>.</li>
+<li>Learn more about Facebook's <a href="http://facebook.github.io/react/">React.js</a>. A lot of great concepts are stemming from the great work there, including <a href="https://facebook.github.io/flux/">Flux</a>.</li>
+</ul>
+
+<p>At a glance, Angular 1 &amp; 2 have very little in common. 2.0 looks more like a complete overhaul than an episode of Pimp my Framework. So with the learning curve for 1.x, why continue sinking time into a framework that may quickly become vaporware? </p>
+
+<p>[edit March 11, 2015]</p>
+
+<p>Recently, I've had this questioned answered. Seeing that 1.x &amp; 2.x apps can work together with the new router is a strong case towards continuing with Angular 1. I also now see efforts towards a migration path, as well as a lot of similarities in code style.</p>
+
+<p>Embracing change can be a good thing, but you have to do it at the right time. Too early, and your efforts may outweigh the benefits. Too late, and you're, well... you're too late. For now, I remain enthusiastic about 1.x, and for that I thank the fantastic Angular community.</p>]]></content:encoded></item><item><title><![CDATA[ES6 Generators with Angular]]></title><description><![CDATA[<h1 id="es6generators">ES6 Generators</h1>
+
+<p>With Christmas come early this coming June, JavaScript is getting a shiny new coat of paint. ES6 comes with a lot of great new features. In particular, if you haven't tried generators yet, or if you have, and they still don't make sense, this post might be helpful.</p>]]></description><link>http://localhost:2368/es6-generators/</link><guid isPermaLink="false">5334cc68-20d3-47b5-be59-158406a6474a</guid><category><![CDATA[AngularJS]]></category><category><![CDATA[ES6]]></category><category><![CDATA[JS]]></category><dc:creator><![CDATA[Shawn McKay]]></dc:creator><pubDate>Fri, 13 Feb 2015 05:31:34 GMT</pubDate><media:content url="http://localhost:2368/content/images/2015/02/Electric_power_is_a_weapon_of_war-_No_tank-_no_shell-_no_plane_can_be_made_without_it-_TVA_jobs_are_war_jobs-_-_NARA_-_534837.jpg" medium="image"/><content:encoded><![CDATA[<h1 id="es6generators">ES6 Generators</h1>
+
+<img src="http://localhost:2368/content/images/2015/02/Electric_power_is_a_weapon_of_war-_No_tank-_no_shell-_no_plane_can_be_made_without_it-_TVA_jobs_are_war_jobs-_-_NARA_-_534837.jpg" alt="ES6 Generators with Angular"><p>With Christmas come early this coming June, JavaScript is getting a shiny new coat of paint. ES6 comes with a lot of great new features. In particular, if you haven't tried generators yet, or if you have, and they still don't make sense, this post might be helpful.</p>
+
+<p>ES6 (node-harmony, iojs) with generators are already common in Node.js. Checkout <a href="http://koajs.com/">Koa.js</a> by the original creators of Express. So why don't we see them much on the client-side? The client-side environment is harder to control, but with transpilation we can avoid this problem.</p>
+
+<h2 id="es6setup">ES6 Setup</h2>
+
+<p>In order to get started with ES6 today, you're going to need to change your JavaScript into standard ES5 code. This is called transpilation. If you plan on supporting older browsers in the future, you might as well get used to the process, as its a great way to  use ES6 &amp; proposed ES7 features today.</p>
+
+<p>You can get started with ES6 in the browser today using a real-time compiler such as <a href="https://github.com/google/traceur-compiler">Traceur</a> or the pre-compiler <a href="https://babeljs.io/">Babel</a> (formerly named 6to5). Or if generators are the only thing you're looking to add to your code, Facebook has a project called <a href="https://github.com/facebook/regenerator">Regenerator</a>.</p>
+
+<p>An easy way to get started is to use the Yeoman generator <a href="https://github.com/Swiip/generator-gulp-angular">gulp-angular</a>. It provides options for a setup for either Traceur or 6to5. Unfortunately, I'm still looking for a better quick-start option for handling modules, perhaps with JSPM (ideas?).</p>
+
+<h2 id="humanreadableasync">Human Readable Async</h2>
+
+<p>Generators can help make your async code look human readable again. Let's compare traditional callback methods with generators. Spoiler alert: generators are way better.</p>
+
+<h3 id="callbacks">Callbacks</h3>
+
+<pre><code class="language-javascript">function callbackFunction (var1) {  
+    first(success, failure) {
+        if (success) {
+            getSecondDependency(var1, success, failure) {
+            if (success {
+                second(secondDependency, success, failure) {
+                if (success) {
+                    third(success, failure) {}
+                    fourth(sucess, failure) {}
+                 }}}}}}}
+</code></pre>
+
+<ul>
+<li>Plus one for side scrollability.</li>
+</ul>
+
+<p>And the contender: Generators with spawn().</p>
+
+<h3 id="es6generatorswithspawn">ES6 Generators with Spawn</h3>
+
+<pre><code class="language-javascript">function generatorWithSpawn (var1) {  
+   spawn(function* () {
+    try {
+      yield first();
+      var secondDependency = yield getData(var1);
+      yield Promise.all(
+        second(secondDependency),
+        third(),
+        fourth()
+      );
+   }
+   catch (error) {
+       console.error(error);
+   }
+   });
+});
+</code></pre>
+
+<ul>
+<li>Plus one for readability.</li>
+<li>Plus one for error handling.</li>
+<li>Plus one for easy modification.</li>
+</ul>
+
+<h2 id="howgeneratorsspawnwork">How Generators &amp; Spawn Work</h2>
+
+<p><code>spawn()</code> simply wraps around your generator <code>function*</code> and runs the generator until it is complete.</p>
+
+<p>Whenever a process is async, you <code>yield</code> to it. Yield acts like a callback, saying 'pause here until the data comes back.' </p>
+
+<p>Spawn calls the next() iterator when every yield is complete until finished.  Use a try &amp; catch blocks for better error handling.</p>
+
+<p>Rather than $q, you can use Promise, another es6 feature to handle calls. There's <a href="https://github.com/ShMcK/angular-es6-async-services">a better example of using Promises and Spawn here</a>.</p>
+
+<p>Keep in mind that spawn functions are intended to return anything so there's no need to return anything. The spawn() function simply returns <code>undefined</code>.</p>
+
+<h2 id="setupspawninangular">Setup Spawn in Angular</h2>
+
+<p>Adding spawn as a service in Angular is pretty simple. This service is basically just taken from <a href="http://jakearchibald.com/2014/es7-async-functions/">Jake Archibalds blog post here.</a> and tossed into Angular. </p>
+
+<pre><code class="language-javascript">/* ES6 Generator - Spawn 
+ * Thanks to http://jakearchibald.com/2014/es7-async-functions/ */
+(function () {
+  'use strict';
+  angular.module('angularEs6Spawn', [])
+    .factory('spawn', spawn);
+function spawn() {  
+    return function (generatorFunc) {
+      function continuer(verb, arg) {
+        var result;
+        try {
+          result = generator[verb](arg);
+        } catch (err) {
+          return Promise.reject(err);
+        }
+        if (result.done) {
+          return result.value;
+        } else {
+          return Promise.resolve(result.value).then(onFulfilled, onRejected);
+        }
+      }
+      var generator = generatorFunc.apply(this, arguments);
+      var onFulfilled = continuer.bind(continuer, "next");
+      var onRejected = continuer.bind(continuer, "throw");
+      return onFulfilled();
+    };
+  }
+</code></pre>
+
+<p>Drop that code in and add the dependency 'angularEs6Generator` to your app. </p>
+
+<h3 id="followup">Follow-up</h3>
+
+<p>Generators are great. Read more about what you can do: </p>
+
+<ul>
+<li>next() can be called with a value passed to the yield statement. For 
+example:  </li>
+</ul>
+
+<pre><code class="language-javascript">next(function(a) { return a + 1; }  
+</code></pre>
+
+<p>This is potentially quite valuable. Check out <a href="http://chrisbuttery.com/articles/synchronous-asynchronous-javascript-with-es6-generators/">an example here</a>.</p>
+
+<ul>
+<li><a href="http://davidwalsh.name/concurrent-generators">CSP</a> - check out the ping pong game example. </li>
+</ul>
+
+<h3 id="readmore">Read More</h3>
+
+<p>It's even easier than it looks. Read more about ES6 Generators:</p>
+
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*">MDN function*</a></li>
+<li><a href="http://davidwalsh.name/es6-generators">David Walsh: ES6 Generators</a></li>
+<li><a href="http://www.joezimjs.com/javascript/synchronizing-asynchronous-javascript-es7/">Synchronizing Asynchronous JavaScript ES7</a></li>
+</ul>]]></content:encoded></item></channel></rss>

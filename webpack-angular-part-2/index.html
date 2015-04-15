@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <!-- (1) Optimize for mobile versions: http://goo.gl/EOpFl -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- (1) force latest IE rendering engine: bit.ly/1c8EiC9 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Webpack &amp; Angular: Part 2</title>
+    <meta name="description" content="" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Webpack &amp; Angular: Part 2">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:site" content="http://mark-read.info"> <!-- Change this to your URL -->
+<meta name="twitter:creator" content="@MarkReadM"> <!-- Change this to your Twitter Handel -->
+    <meta name="google-site-verification" content="">
+    <meta property="fb:admins" content="">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Webpack &amp; Angular: Part 2">
+    <meta property="og:description" content="">
+
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../assets/js/styles/obsidian.css?v=0ab13dfc39">
+    <link rel="stylesheet" href="http://brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i">
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" media="screen" href="../assets/css/main.css?v=0ab13dfc39" />
+    <link rel="stylesheet" type="text/css" media="print" href="../assets/css/print.css?v=0ab13dfc39" />
+	<link rel="stylesheet" type="text/css" media="print" href="../assets/css/prism.css?v=0ab13dfc39" />
+    <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <link rel="canonical" href="index.html" />
+    
+    <meta property="og:site_name" content="ShMcK" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Webpack &amp; Angular: Part 2" />
+    <meta property="og:description" content="Part 2 Complex Webpack Dependencies If you&#x27;re unfamiliar with Webpack, you might want to checkout Part 1 of this Article on setting up a project with Webpack. This demo will continue from the previous article&#x27;s code-base. In this article we&#x27;ll..." />
+    <meta property="og:url" content="http://localhost:2368/webpack-angular-part-2/" />
+    <meta property="article:published_time" content="2015-04-15T02:37:15.335Z" />
+    <meta property="article:modified_time" content="2015-04-15T02:37:15.331Z" />
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Webpack &amp; Angular: Part 2" />
+    <meta name="twitter:description" content="Part 2 Complex Webpack Dependencies If you&#x27;re unfamiliar with Webpack, you might want to checkout Part 1 of this Article on setting up a project with Webpack. This demo will continue from the previous article&#x27;s code-base. In this article we&#x27;ll..." />
+    <meta name="twitter:url" content="http://localhost:2368/webpack-angular-part-2/" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "ShMcK",
+    "author": {
+        "@type": "Person",
+        "name": "Shawn McKay",
+        "image": "http://localhost:2368/content/images/2015/02/header-shawn-2.png",
+        "url": "http://localhost:2368/author/shmck",
+        "sameAs": null,
+        "description": null
+    },
+    "headline": "Webpack &amp; Angular: Part 2",
+    "url": "http://localhost:2368/webpack-angular-part-2/",
+    "datePublished": "2015-04-15T02:37:15.335Z",
+    "dateModified": "2015-04-15T02:37:15.331Z",
+    "description": "Part 2 Complex Webpack Dependencies If you&#x27;re unfamiliar with Webpack, you might want to checkout Part 1 of this Article on setting up a project with Webpack. This demo will continue from the previous article&#x27;s code-base. In this article we&#x27;ll..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.6" />
+    <link rel="alternate" type="application/rss+xml" title="ShMcK" href="../rss/index.html" />
+</head>
+<body class="post-template">
+
+    <a href="../index.html" class="logo-readium"><span class="logo" style="background-image: url(../content/images/2015/03/logo-mountain.png)"></span></a>
+    
+
+<main class="content" role="main">
+
+    <article class="post">
+
+
+
+        <div class="noarticleimage">
+            <div class="post-meta">
+                <h1 class="post-title">Webpack &amp; Angular: Part 2</h1>
+                <div class="cf post-meta-text">
+                    <div class="author-image" style="background-image: url(../content/images/2015/02/header-shawn-2.png)">Blog Logo</div>
+                    <h4 class="author-name" itemprop="author" itemscope itemtype="http://schema.org/Person"><a href="../author/shmck/index.html">Shawn McKay</a></h4> on
+                    <time datetime="2015-04-15">15 Apr 2015</time>, tagged on 
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+
+
+
+            <section class="post-content">
+                <div class="post-reading">
+                    <span class="post-reading-time"></span> read
+                </div>
+                <a name="topofpage"></a>
+                <h5 id="part2">Part 2</h5>
+
+<h1 id="complexwebpackdependencies">Complex Webpack Dependencies</h1>
+
+<p>If you're unfamiliar with Webpack, you might want to checkout <a href="http://shmck.com/webpack-angular-part-1">Part 1</a> of this Article on setting up a project with Webpack. This demo will continue from the previous article's <a href="https://github.com/ShMcK/WebpackAngularDemos/tree/master/Part1">code-base</a>.</p>
+
+<p>In this article we'll look at loading different types of dependencies: scripts, styles, fonts, etc. using Webpack. We'll also compare and contrast loading modules from NPM &amp; Bower.</p>
+
+<h2 id="lumx">LumX</h2>
+
+<p><a href="http://ui.lumapps.com/">LumX</a> is a great Material Design based CSS Framework built for Angular. </p>
+
+<p>I would argue LumX looks better in both style and code-style when compared to <a href="https://material.angularjs.org/">angular-material</a>. Again, that's largely a matter of opinion. </p>
+
+<p>LumX will make a good example as it comes with a lot of different types of dependencies: scripts, styles, fonts. Let's see how Webpack can combine them into a single <code>bundle.js</code> file. </p>
+
+<h2 id="bowersetup">Bower Setup</h2>
+
+<p>Make a <code>bower.json</code> file. </p>
+
+<pre><code class="language-shell">bower init  
+</code></pre>
+
+<p>Get some practice pressing enter really fast and agree to all the defaults.</p>
+
+<p>Create a file called <code>.bowerrc</code> in the root. This will move all our downloaded bower components into the specified directory.</p>
+
+<pre><code class="language-json">{
+  "directory": "app/bower_components"
+}
+</code></pre>
+
+<p>We're going to need <code>lumx</code>, install it.</p>
+
+<pre><code class="language-shell">bower install --save lumx  
+</code></pre>
+
+<p>We should let Angular know we're going to be using Lumx.</p>
+
+<p>/app/index.js</p>
+
+<pre><code class="language-js">module.exports = angular.module('app', [  
+  'lumx'
+]);
+</code></pre>
+
+<p>LumX comes with a party of dependencies. Look in <code>app/bower_components</code> and you'll see them all. </p>
+
+<pre><code>bower_components  
+├── angular
+├── bourbon            // Sass mixins
+├── jquery
+├── lumx                
+├── mdi                // Material Design Icons
+├── moment             // time
+└── velocity            // jQuery animations
+</code></pre>
+
+<p>Bad news at this point.</p>
+
+<blockquote>
+  <p>Webpack Prefers NPM over Bower.</p>
+</blockquote>
+
+<p>Don't worry, it'll work out.</p>
+
+<h2 id="npmvsbower">NPM vs. Bower</h2>
+
+<p>It's true, Webpack can handle both CommonJS &amp; AMD (asynchronous) modules. But Webpack has a preference: CommonJS. </p>
+
+<p>Let's compare NPM and Bower for a minute.</p>
+
+<p>NPM has nested dependencies, meaning that you can have different packages all loading different versions of <code>lodash</code> at the same time. It's very specific. </p>
+
+<p>Bower, on the other hand, flattens dependencies. As such, it is often used on the front-end because, well, obviously, it isn't ideal to have 3 versions of jQuery loaded every time you visit a webpage.</p>
+
+<p>Anyway, that information probably wasn't very helpful, but it's nice to know. To the point:</p>
+
+<p>NPM and Bower aren't the same, and Webpack prefers NPM (CommonJS). According to the Docs:</p>
+
+<blockquote>
+  <p>In many cases modules from npm are better than the same module from 
+  bower. Bower mostly contain only concatenated/bundled files which
+   are:</p>
+  
+  <p>More difficult to handle for webpack
+  More difficult to optimize for webpack
+  Sometimes only useable without a module system
+  So prefer to use the CommonJs-style module and let webpack build it.
+  <a href="http://webpack.github.io/docs/usage-with-bower.html">Source</a>. </p>
+</blockquote>
+
+<p>Luckily most packages have NPM &amp; Bower equivalents, though there doesn't seem to be much interest in making LumX an NPM module. See the <a href="https://github.com/lumapps/lumX/issues/74">open issue</a> and comment about how much you want more NPM! </p>
+
+<p>Let's get emotional now and get rid of all of our Bower Lumx dependencies. If it's not NPM, it deserves a subtle level of disgust.</p>
+
+<pre><code>app/bower_components  
+├── bourbon    
+└── lumx
+</code></pre>
+
+<p>If you want to keep them from coming back, go into <code>bower_components/lumx/bower.json</code> and delete the dependencies. However, you'll just have to do this again if you update LumX in the future.</p>
+
+<p>From here on in, we're going to try to NPM almost everything. </p>
+
+<h2 id="npmnpm">NPM! NPM!</h2>
+
+<p>Now let's NPM install the dependencies we just deleted from Bower.</p>
+
+<pre><code class="language-json">                               /* NPM Package Name */
+"dependencies": {               ====================
+    "angular": "latest",        // angular
+    "jquery": "latest",            // jquery
+    "velocity": "latest",        // velocity-animate
+    "moment": "latest",            // moment
+    "bourbon": "latest",        // node-bourbon (not necessary)
+    "mdi": "1.0.8-beta"            // mdi
+  }
+</code></pre>
+
+<p>As you can see, there really are easy NPM equivalents. Install the dependencies.</p>
+
+<pre><code class="language-shell">npm install --save angular jquery velocity-animate moment mdi  
+</code></pre>
+
+<h3 id="requirenpm_module">Require(NPM_Module)</h3>
+
+<p>It should still work. Now let's load some primary NPM dependencies in a file we'll call <code>vendor.js</code>.</p>
+
+<p>/app/core/vendor.js</p>
+
+<pre><code class="language-js">module.exports = function () {  
+    /* must be in order */
+  require('jquery');
+  require('velocity-animate');
+  require('angular');
+};
+</code></pre>
+
+<p>LumX seeks a few dependencies as globals, so we'll have to change this a little.</p>
+
+<p><code>global</code> attaches a value to the global context, likely the browser window. </p>
+
+<p>/app/core/vendor.js</p>
+
+<pre><code class="language-js">module.exports = function () {  
+global.$ = global.jQuery = require('jquery');   // $ for Lumx, jQuery for velocity  
+  require('velocity-animate');
+  require('angular');
+  global.moment = require('moment');            // for LumX
+  };
+</code></pre>
+
+<h3 id="requirebower_component">Require(Bower_Component)</h3>
+
+<p>We'll have to inject some dependencies into LumX to get it to load properly. For this we need the <a href="https://github.com/webpack/imports-loader"><code>imports-loader</code></a>.</p>
+
+<p><code>npm install -D imports-loader</code></p>
+
+<p>Now we can require Lumx, even though it is a Bower package. </p>
+
+<pre><code class="language-js">module.exports = function () {  
+global.$ = global.jQuery = require('jquery');  
+  require('velocity-animate');
+  require('angular');
+  global.moment = require('moment');
+  require('imports?angular!../bower_components/lumx/dist/lumx.js');
+  };
+</code></pre>
+
+<p><code>imports?</code> tells webpack to use the imports-loader, and <code>angular!</code> says to inject angular into the file. You could also inject jQuery, but it's already global.</p>
+
+<p>There is probably an easier to way load Bower packages, if you know how, please post in the comments. This worked for me.</p>
+
+<p>Note: another possible suggestion would be to load Lumx as an NPM module using <a href="https://github.com/eugeneware/debowerify"><code>debowerify</code></a>, as posted by Mallim <a href="https://github.com/lumapps/lumX/issues/74">here</a>. I plan to explore this option later. </p>
+
+<h3 id="requirestyles">Require(styles)</h3>
+
+<p>LumX depends on a Bourbon Sass mixins which also have an NPM equivalent: <code>node-bourbon</code>. However, LumX requires them using a relative path within the <code>bower_components</code> folder, so it's better just to keep the Bower Bourbon file.</p>
+
+<p>Style sheets can be loaded using <code>require('.path/to/_lumx.scss')</code>, as in the <a href="http://shmck.com/webpack-angular-part-1">previous article</a> but due to the cascading nature of stylesheets, it's likely better to keep them in a root <code>index.scss</code> file. Simply import the Lumx styles.</p>
+
+<p>/app/index.scss</p>
+
+<p><code>@import './bower_components/lumx/dist/scss/_lumx';</code></p>
+
+<h3 id="requirefontsicons">Require(Fonts &amp; Icons)</h3>
+
+<p>We'll need another loader for fonts &amp; icons. Install the <a href="https://github.com/webpack/file-loader"><code>file-loader</code></a>.</p>
+
+<p><code>npm install -D file-loader</code></p>
+
+<p>Add the loader to your webpack.config file and tell it to grab anything that looks like a font.</p>
+
+<p>/app/webpack.config.js</p>
+
+<pre><code class="language-js">{
+    test: /\.(woff|woff2|ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+    loader: 'file-loader?name=res/[name].[ext]?[hash]'
+}
+</code></pre>
+
+<p>Load up the Material Design Icons. The <code>materialdesignicons.scss</code> will point to our font files, which will get loaded by the file-loader.</p>
+
+<p>/app/core/vendor.js</p>
+
+<pre><code class="language-js">/* Styles */
+  require('../index.scss');
+  require('../../node_modules/mdi/scss/materialdesignicons.scss');
+</code></pre>
+
+<p>Create a test to see if icons and fonts are loading in <code>index.html</code>.</p>
+
+<p>/app/index.html</p>
+
+<pre><code class="language-html">&lt;p class='fs-headline'&gt;Icon Test: &lt;i class="mdi mdi-twitter"&gt;&lt;/i&gt; @Sh_McK&lt;/p&gt;  
+</code></pre>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>We now have our LumX dependencies running: scripts, styles, fonts &amp; icons, oh my! </p>
+
+<p>We saw how Webpack can load different file formats, as well as handle different module types (NPM or Bower). Webpack prefers NPM.</p>
+
+<p>Checkout <a href="https://github.com/ShMcK/WebpackAngularDemos/tree/master/Part2">Github</a> for the full codebase.</p>
+
+<p>In <a href="http://shmck.com/webpack-angular-part-3">Part 3</a> we'll finally be able to take advantage of using Webpack with Angular for creating incredibly modular code.</p>
+            </section>
+            <footer class="post-footer">
+                <section class="share">
+                    <a class="icon-twitter" href="http://twitter.com/share?text=Webpack%20%26%20Angular%3A%20Part%202&url=http://localhost:2368/webpack-angular-part-2/"
+                        onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                        <span class="hidden">Twitter</span>
+                    </a>
+                    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/webpack-angular-part-2/"
+                        onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                        <span class="hidden">Facebook</span>
+                    </a>
+                    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/webpack-angular-part-2/"
+                       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                        <span class="hidden">Google+</span>
+                    </a>
+                </section>
+            </footer>
+                        <div class="bottom-teaser cf">
+                <div class="isLeft">
+                    <h5 class="index-headline featured"><span>Written by</span></h5>
+                    <section class="author">
+                        <div class="author-image" style="background-image: url(../content/images/2015/02/header-shawn-2.png)">Blog Logo</div>
+                        <h4><a href="../author/shmck/index.html">Shawn McKay</a></h4>
+                        <p class="bio"></p>
+                        <hr>
+                        <p class="published">Published <time datetime="2015-04-15">15 Apr 2015</time></p>
+                    </section>
+                </div>
+            </div>
+
+    </article>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+	var disqus_shortname = 'shmck'; // required: replace example with your forum shortname
+
+	/* * * DON'T EDIT BELOW THIS LINE * * */
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+<div class="bottom-closer">
+    <div class="background-closer-image" style="background-image: url(../content/images/2015/03/Mountain-short-dark.jpg)">
+        Image
+    </div>
+    <div class="inner">
+        <h1 class="blog-title">ShMcK</h1>
+        <h2 class="blog-description">JavaScript Web Dev in Korea</h2>
+        <a href="../index.html" class="btn">Back to Overview</a>
+    </div>
+</div>
+</main>
+
+
+    <script src="../public/jquery.js?v=0ab13dfc39"></script>
+
+    <script type="text/javascript" src="../assets/js/jquery.fitvids.js?v=0ab13dfc39"></script>
+    <script type="text/javascript" src="../assets/js/index.js?v=0ab13dfc39"></script>
+    <script src="../assets/js/readingTime.min.js?v=0ab13dfc39"></script>
+    <script src="../assets/js/prism.js?v=0ab13dfc39"></script>
+    <script src="../assets/js/highlight.pack.js?v=0ab13dfc39"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <script>
+        
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    
+      ga('create', 'UA-44377274-2');
+      ga('send', 'pageview');
+    
+    </script>
+
+</body>
+</html>

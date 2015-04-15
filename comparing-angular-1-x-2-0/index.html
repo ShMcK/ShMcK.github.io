@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <!-- (1) Optimize for mobile versions: http://goo.gl/EOpFl -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- (1) force latest IE rendering engine: bit.ly/1c8EiC9 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Comparing Angular 1.x &amp; 2.0</title>
+    <meta name="description" content="" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Comparing Angular 1.x &amp; 2.0">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:site" content="http://mark-read.info"> <!-- Change this to your URL -->
+<meta name="twitter:creator" content="@MarkReadM"> <!-- Change this to your Twitter Handel -->
+    <meta name="google-site-verification" content="">
+    <meta property="fb:admins" content="">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Comparing Angular 1.x &amp; 2.0">
+    <meta property="og:description" content="">
+
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../assets/js/styles/obsidian.css?v=0ab13dfc39">
+    <link rel="stylesheet" href="http://brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i">
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" media="screen" href="../assets/css/main.css?v=0ab13dfc39" />
+    <link rel="stylesheet" type="text/css" media="print" href="../assets/css/print.css?v=0ab13dfc39" />
+	<link rel="stylesheet" type="text/css" media="print" href="../assets/css/prism.css?v=0ab13dfc39" />
+    <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <link rel="canonical" href="index.html" />
+    
+    <meta property="og:site_name" content="ShMcK" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Comparing Angular 1.x &amp; 2.0" />
+    <meta property="og:description" content="The Obsorne Effect The Angular team faces a problem. How do you talk the great new features of Angular 2.0 under development without damaging use of the current 1.x? This effect is often called the Obsborne effect, named..." />
+    <meta property="og:url" content="http://localhost:2368/comparing-angular-1-x-2-0/" />
+    <meta property="article:published_time" content="2015-02-17T03:50:27.053Z" />
+    <meta property="article:modified_time" content="2015-03-11T12:23:44.921Z" />
+    <meta property="article:tag" content="AngularJS" />
+    <meta property="article:tag" content="angular2.0" />
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Comparing Angular 1.x &amp; 2.0" />
+    <meta name="twitter:description" content="The Obsorne Effect The Angular team faces a problem. How do you talk the great new features of Angular 2.0 under development without damaging use of the current 1.x? This effect is often called the Obsborne effect, named..." />
+    <meta name="twitter:url" content="http://localhost:2368/comparing-angular-1-x-2-0/" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "ShMcK",
+    "author": {
+        "@type": "Person",
+        "name": "Shawn McKay",
+        "image": "http://localhost:2368/content/images/2015/02/header-shawn-2.png",
+        "url": "http://localhost:2368/author/shmck",
+        "sameAs": null,
+        "description": null
+    },
+    "headline": "Comparing Angular 1.x &amp; 2.0",
+    "url": "http://localhost:2368/comparing-angular-1-x-2-0/",
+    "datePublished": "2015-02-17T03:50:27.053Z",
+    "dateModified": "2015-03-11T12:23:44.921Z",
+    "keywords": "AngularJS, angular2.0",
+    "description": "The Obsorne Effect The Angular team faces a problem. How do you talk the great new features of Angular 2.0 under development without damaging use of the current 1.x? This effect is often called the Obsborne effect, named..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.6" />
+    <link rel="alternate" type="application/rss+xml" title="ShMcK" href="../rss/index.html" />
+</head>
+<body class="post-template tag-angularjs tag-angular2-0">
+
+    <a href="../index.html" class="logo-readium"><span class="logo" style="background-image: url(../content/images/2015/03/logo-mountain.png)"></span></a>
+    
+
+<main class="content" role="main">
+
+    <article class="post tag-angularjs tag-angular2-0">
+
+
+
+        <div class="noarticleimage">
+            <div class="post-meta">
+                <h1 class="post-title">Comparing Angular 1.x &amp; 2.0</h1>
+                <div class="cf post-meta-text">
+                    <div class="author-image" style="background-image: url(../content/images/2015/02/header-shawn-2.png)">Blog Logo</div>
+                    <h4 class="author-name" itemprop="author" itemscope itemtype="http://schema.org/Person"><a href="../author/shmck/index.html">Shawn McKay</a></h4> on
+                    <time datetime="2015-02-17">17 Feb 2015</time>, tagged on <span class="post-tag-angularjs"><a href="../tag/angularjs">AngularJS</a></span><span class="post-tag-angular2-0">, <a href="../tag/angular2-0">angular2.0</a></span>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+
+
+
+            <section class="post-content">
+                <div class="post-reading">
+                    <span class="post-reading-time"></span> read
+                </div>
+                <a name="topofpage"></a>
+                <h3 id="theobsorneeffect">The Obsorne Effect</h3>
+
+<p>The Angular team faces a problem. How do you talk the great new features of Angular 2.0 under development without damaging use of the current 1.x? This effect is often called the <a href="http://en.wikipedia.org/wiki/Osborne_effect">Obsborne effect</a>, named after a 1980s computer company whose marketing contributed to putting the company out of business. In short, the better 2.0 sounds, the less people will want to start or continue projects built with 1.x.</p>
+
+<p>But the secrets out. Angular 2.0 is available on <a href="https://github.com/angular/angular">github</a> and you can play around with it using <code>npm install angular@2.0.0-alpha.6</code>. Keep in mind, it is NOT ready for production and subject to (likely a lot of) change.</p>
+
+<h1 id="angular1xvs20">Angular 1.x vs. 2.0</h1>
+
+<p>It's important to see why the Angular team are making such drastic changes. Angular isn't just trying to keep up, they're pushing forward a lot of standards, enhancements and better app architecture. </p>
+
+<p>The more you look at the elegance of 2.0, the more 1.x looks like a bunch of hacks strewn together and prefixed with 'ng-'. While 1.x was all about adding features and getting stuff done, 2.x should have a simpler API while simultaneously targeting performance &amp; web standards. </p>
+
+<hr />
+
+<h4 id="2waydatabinding">2-way data binding</h4>
+
+<p><strong>2.0:</strong> 1-way data binding</p>
+
+<p>In larger apps, 2-way binding can develop into spaghetti. Angular 2.0 will use a concept called <a href="http://en.wikipedia.org/wiki/Directed_acyclic_graph">Directed Acyclic Graph</a>, a kind of unidirectional architecture.</p>
+
+<p>This sounds a lot like what React is doing right with <a href="https://facebook.github.io/flux/">Flux</a>. This kind of architecture can be used with Angular as well. <a href="http://victorsavkin.com/post/99998937651/building-angular-apps-using-flux-architecture">Read more</a>.</p>
+
+<p>Though 2-way binding will disappear, Misko has stated that Angular 2.0 may function in a way that data bindings appear 2-way, though behind the scenes data flows 1-way.</p>
+
+<hr />
+
+<h3 id="watchers">watchers</h3>
+
+<p><strong>2.0:</strong> <a href="https://github.com/btford/zone.js/">Zone.js</a></p>
+
+<p>$scope.$watch, $scope.$apply, $timeout. No more. Whew! Using these was part of the reason Angular 1.x had such a huge learning curve.</p>
+
+<p>Zone.js helps Angular to do change detection automatically. This sounds similar to React's <a href="http://facebook.github.io/react/docs/reconciliation.html">reconciliation</a> diffing algorithm.</p>
+
+<p>The Angular team explained change detection is now faster, uses less memory and less power. Change detection may improve further with <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/observe">object.observe</a> coming to other browsers (currently just Chrome). </p>
+
+<p>Zone.js also supports using immutable objects for even faster processing. This is because the compiler can assume the data objects won't change and optimize.</p>
+
+<p>[edit March 11, 2015]
+For a more indepth look at how change detection will work in Angular 2.0 watch <a href="https://www.youtube.com/watch?v=jvKGQSFQf10&amp;list=PLOETEcp3DkCoNnlhE-7fovYvqwVPrRiY7">Change Detection Reinvented by Victor Sakvin @ngConf</a>.</p>
+
+<hr />
+
+<h3 id="componentcommunication">component communication</h3>
+
+<p><strong>2.0:</strong> Instead of $broadcast &amp; $emit, 2.0 has a few differences: 
+1) You can emit messages in the DOM, rather than the scope. <br />
+2) You can put components inside eachother and link them directly. This may be similar to components using isolate scope now.</p>
+
+<hr />
+
+<h3 id="dom">DOM</h3>
+
+<p><strong>2.0:</strong> In many ways, Angular 2.0 seems to handle DOM style manipulation with something similar to React.js's virtual DOM, which they referred to in a recent presentation as the "view". In response to a recent question about 'Angular Native?', Misko mentioned that this View could be run on a web worker or even potentially on native. </p>
+
+<hr />
+
+<h3 id="scope">scope</h3>
+
+<p>Data will be organized in a tree like architecture.</p>
+
+<p>Angular 2.0 will also use Web Components standards. For example, the shadow DOM could be used to create an isolate scope. The Angular team explained that there is also a shadow DOM emulated mode (for browsers not support web component features yet.) This would allow additional options for isolating css styles as well. Cool! </p>
+
+<hr />
+
+<h3 id="modules">Modules</h3>
+
+<p><strong>2.0:</strong> 2.0 is of course going to use ES6 module syntax. On top of that, Angular 2.0 is expected to have 'amazing' dependency injection with lazy-loading. Rather than using singletons, 2.0 will have a kind of hierchical data structure likely offers inheritance features. You will also be able to control the lifetime of modules such as services.</p>
+
+<hr />
+
+<h3 id="directives">Directives</h3>
+
+<p>[edit March 11, 2015]</p>
+
+<p><strong>2.0:</strong> <del>Now called "Components"</del> Still called directives. In Angular 1.x, directives are available everywhere on instantiation, creating name-space overlap problems for large projects. In 2.0, you must import your directives which avoids this problem.</p>
+
+<p>Although I'm not clear on how it works, Angular 2.0 will create a prototypical template of all potential bindings to optimize for compiler speed.</p>
+
+<p>There are currently three types of directives:</p>
+
+<ul>
+<li><p>Component Directive - Made up of a view &amp; controller. What we might recognize as a .directive style directive.</p></li>
+<li><p>Decorator Directive - adds behavior to a directive. Similar to the ng-directive attributes you add, like ng-click or ng-show.</p></li>
+<li><p>Viewport Directive - handles html transformations as in ng-if or ng-repeat. </p></li>
+</ul>
+
+<hr />
+
+<h3 id="router">Router</h3>
+
+<p><strong>2.0:</strong> Check it out: <a href="https://github.com/angular/router">2.0 router</a>. It should be back-ported to 1.x as well, though without the feature of lazy-loading which was deemed unstable for 1.x. </p>
+
+<p><em>[edit: March 8, 2015]</em></p>
+
+<p>Brian Ford gave a <a href="https://www.youtube.com/watch?v=vecg70fPDFw&amp;list=PLOETEcp3DkCoNnlhE-7fovYvqwVPrRiY7">presentation about the new router</a> @ng-conf that's worth a watch. In it he describes how the new router can use both Angular 1.x &amp; 2.x modules, allowing teams to gradually change from one router to the other. He also proposed a possible migration path from the popular ui-router.</p>
+
+<p>Ui-router is great, but lacks some important features. For example, resolve can only pass data before a page is loaded. What if you want to check if a users current data is saved in a form before routing to the next page? Ui-router's resolve is a one-time trigger. Instead, the new router will provide 'Lifecycle Hooks' that let you specify exactly when you want an action to take place.</p>
+
+<p>Component directives can be routed to using the new-angular-router. If this sounds crazy to you, you can already do something similar in angular 1.x by dropping controllers for directives and routing to a template. Check out this <a href="http://teropa.info/blog/2014/10/24/how-ive-improved-my-angular-apps-by-banning-ng-controller.html">example</a> for inspiration.</p>
+
+<hr />
+
+<h3 id="html">HTML</h3>
+
+<p><strong>2.0:</strong> Though the syntax looks very different, keep in mind that the differences have good reasons behind them. </p>
+
+<h5 id="ngdirectives">ng-directives</h5>
+
+<p>Components in the HTML are broken up into two types: (events) &amp; [properties]. They are wrapped in round or square brackets to help both humans and the computer differentiate and optimize for the two types.</p>
+
+<hr />
+
+<h6 id="events"><strong>(events)</strong></h6>
+
+<p>(events) refer to user initiated actions.</p>
+
+<table style="width:100%">  
+    <tr>
+        <th align="left">1.x</th>
+        <th align="left">2.0</th>
+    </tr>
+    <tr>
+        <td>ng-click</td>
+        <td>(click) (dbl-click)</td>
+    </tr>
+    <tr>
+        <td>ng-keyup</td>
+        <td>(keyup)</td>
+    </tr>
+</table>
+
+<hr />
+
+<h6 id="properties"><strong>[properties]</strong></h6>
+
+<p>[properties] now link directly into the DOM properties.</p>
+
+<table style="width:100%">  
+    <tr>
+        <th align="left">1.x</th>
+        <th align="left">2.0</th>
+    </tr>
+    <tr>
+        <td>ng-hide</td>
+        <td>[class:hidden]</td>
+    </tr>
+    <tr>
+        <td>ng-checked</td>
+        <td>[checked]</td>
+    </tr>
+</table>
+
+<hr />
+
+<h6 id="foreach"><strong>*foreach</strong></h6>
+
+<p>!foreach is the proposed replacement for ng-repeat.</p>
+
+<pre><code class="language-markup">&lt;ul&gt;  
+&lt;li *foreach="#item in itemService.items"&gt;&lt;/li&gt;  
+&lt;/ul&gt;  
+</code></pre>
+
+<hr />
+
+<h6 id="item"><strong>#item</strong></h6>
+
+<p>Items prefixed with a <strong>#</strong> can bind directly in the html. No more ng-model.  </p>
+
+<pre><code class="language-markup">&lt;input type="text" #userName /&gt;  
+</code></pre>
+
+<hr />
+
+<h6 id=""><strong>{{ }}</strong></h6>
+
+<p>Double curlys are still in 2.0. See! Not everything will change.</p>
+
+<hr />
+
+<h6 id="directivenames"><strong>directive names</strong></h6>
+
+<p>No more camelCase &amp; snake-case confusion. Now you specify the directive name in the component. Assuming Angular 2.0 follows web component standards, it will require a '-' in the name.  </p>
+
+<pre><code class="language-javascript">@Component {
+    selector: 'myApp-component'
+}
+</code></pre>
+
+<hr />
+
+<h1 id="finalthoughts">Final Thoughts</h1>
+
+<p>Angular 2.0 looks fantastic. It's not ready yet, but you can play around with it today. Checkout the <a href="https://github.com/angular/angular">github</a> for more. There are also some examples available, such as <a href="https://github.com/davideast/ng2do">ng2do</a>.</p>
+
+<p>[edit March 11, 2015]
+Definitely catch the keynotes from ng-conf <a href="https://www.youtube.com/watch?v=-dMBcqwvYA0&amp;list=PLOETEcp3DkCoNnlhE-7fovYvqwVPrRiY7">1</a> &amp; <a href="https://www.youtube.com/watch?v=QHulaj5ZxbI&amp;list=PLOETEcp3DkCoNnlhE-7fovYvqwVPrRiY7">2</a> as well as the fresh faced new <a href="https://angular.io/">angular.io</a> site.</p>
+
+<p>If you're looking to prepare for the learning curve, there are a few things you can do now.</p>
+
+<ul>
+<li>Try out Rob Eisenbergs new framework: <a href="http://aurelia.io/">Aurelia</a>. It's definitely worth a look.</li>
+<li>Learn more about <a href="http://webcomponents.org/">web components</a> and shadow DOM.</li>
+<li>Use ES6 - (now ES2015?) - with Angular 1.x. There's a great example using ES6 &amp; JSPM <a href="http://martinmicunda.com/2015/02/09/how-to-start-writing-apps-with-es6-angular-1x-and-jspm/">here</a>.</li>
+<li>Learn more about Facebook's <a href="http://facebook.github.io/react/">React.js</a>. A lot of great concepts are stemming from the great work there, including <a href="https://facebook.github.io/flux/">Flux</a>.</li>
+</ul>
+
+<p>At a glance, Angular 1 &amp; 2 have very little in common. 2.0 looks more like a complete overhaul than an episode of Pimp my Framework. So with the learning curve for 1.x, why continue sinking time into a framework that may quickly become vaporware? </p>
+
+<p>[edit March 11, 2015]</p>
+
+<p>Recently, I've had this questioned answered. Seeing that 1.x &amp; 2.x apps can work together with the new router is a strong case towards continuing with Angular 1. I also now see efforts towards a migration path, as well as a lot of similarities in code style.</p>
+
+<p>Embracing change can be a good thing, but you have to do it at the right time. Too early, and your efforts may outweigh the benefits. Too late, and you're, well... you're too late. For now, I remain enthusiastic about 1.x, and for that I thank the fantastic Angular community.</p>
+            </section>
+            <footer class="post-footer">
+                <section class="share">
+                    <a class="icon-twitter" href="http://twitter.com/share?text=Comparing%20Angular%201.x%20%26%202.0&url=http://localhost:2368/comparing-angular-1-x-2-0/"
+                        onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                        <span class="hidden">Twitter</span>
+                    </a>
+                    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/comparing-angular-1-x-2-0/"
+                        onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                        <span class="hidden">Facebook</span>
+                    </a>
+                    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/comparing-angular-1-x-2-0/"
+                       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                        <span class="hidden">Google+</span>
+                    </a>
+                </section>
+            </footer>
+                        <div class="bottom-teaser cf">
+                <div class="isLeft">
+                    <h5 class="index-headline featured"><span>Written by</span></h5>
+                    <section class="author">
+                        <div class="author-image" style="background-image: url(../content/images/2015/02/header-shawn-2.png)">Blog Logo</div>
+                        <h4><a href="../author/shmck/index.html">Shawn McKay</a></h4>
+                        <p class="bio"></p>
+                        <hr>
+                        <p class="published">Published <time datetime="2015-02-17">17 Feb 2015</time></p>
+                    </section>
+                </div>
+            </div>
+
+    </article>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+	var disqus_shortname = 'shmck'; // required: replace example with your forum shortname
+
+	/* * * DON'T EDIT BELOW THIS LINE * * */
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+<div class="bottom-closer">
+    <div class="background-closer-image" style="background-image: url(../content/images/2015/03/Mountain-short-dark.jpg)">
+        Image
+    </div>
+    <div class="inner">
+        <h1 class="blog-title">ShMcK</h1>
+        <h2 class="blog-description">JavaScript Web Dev in Korea</h2>
+        <a href="../index.html" class="btn">Back to Overview</a>
+    </div>
+</div>
+</main>
+
+
+    <script src="../public/jquery.js?v=0ab13dfc39"></script>
+
+    <script type="text/javascript" src="../assets/js/jquery.fitvids.js?v=0ab13dfc39"></script>
+    <script type="text/javascript" src="../assets/js/index.js?v=0ab13dfc39"></script>
+    <script src="../assets/js/readingTime.min.js?v=0ab13dfc39"></script>
+    <script src="../assets/js/prism.js?v=0ab13dfc39"></script>
+    <script src="../assets/js/highlight.pack.js?v=0ab13dfc39"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <script>
+        
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    
+      ga('create', 'UA-44377274-2');
+      ga('send', 'pageview');
+    
+    </script>
+
+</body>
+</html>

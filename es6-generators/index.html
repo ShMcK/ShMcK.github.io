@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <!-- (1) Optimize for mobile versions: http://goo.gl/EOpFl -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- (1) force latest IE rendering engine: bit.ly/1c8EiC9 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>ES6 Generators with Angular</title>
+    <meta name="description" content="" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="ES6 Generators with Angular">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:site" content="http://mark-read.info"> <!-- Change this to your URL -->
+<meta name="twitter:creator" content="@MarkReadM"> <!-- Change this to your Twitter Handel -->
+    <meta name="google-site-verification" content="">
+    <meta property="fb:admins" content="">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="ES6 Generators with Angular">
+    <meta property="og:description" content="">
+
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../assets/js/styles/obsidian.css?v=0ab13dfc39">
+    <link rel="stylesheet" href="http://brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i">
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" media="screen" href="../assets/css/main.css?v=0ab13dfc39" />
+    <link rel="stylesheet" type="text/css" media="print" href="../assets/css/print.css?v=0ab13dfc39" />
+	<link rel="stylesheet" type="text/css" media="print" href="../assets/css/prism.css?v=0ab13dfc39" />
+    <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <link rel="canonical" href="index.html" />
+    
+    <meta property="og:site_name" content="ShMcK" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="ES6 Generators with Angular" />
+    <meta property="og:description" content="ES6 Generators With Christmas come early this coming June, JavaScript is getting a shiny new coat of paint. ES6 comes with a lot of great new features. In particular, if you haven&#x27;t tried generators yet, or if you have, and..." />
+    <meta property="og:url" content="http://localhost:2368/es6-generators/" />
+    <meta property="og:image" content="http://localhost:2368/content/images/2015/02/Electric_power_is_a_weapon_of_war-_No_tank-_no_shell-_no_plane_can_be_made_without_it-_TVA_jobs_are_war_jobs-_-_NARA_-_534837.jpg" />
+    <meta property="article:published_time" content="2015-02-13T05:31:34.419Z" />
+    <meta property="article:modified_time" content="2015-02-17T01:35:49.719Z" />
+    <meta property="article:tag" content="AngularJS" />
+    <meta property="article:tag" content="ES6" />
+    <meta property="article:tag" content="JS" />
+    
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="ES6 Generators with Angular" />
+    <meta name="twitter:description" content="ES6 Generators With Christmas come early this coming June, JavaScript is getting a shiny new coat of paint. ES6 comes with a lot of great new features. In particular, if you haven&#x27;t tried generators yet, or if you have, and..." />
+    <meta name="twitter:url" content="http://localhost:2368/es6-generators/" />
+    <meta name="twitter:image:src" content="http://localhost:2368/content/images/2015/02/Electric_power_is_a_weapon_of_war-_No_tank-_no_shell-_no_plane_can_be_made_without_it-_TVA_jobs_are_war_jobs-_-_NARA_-_534837.jpg" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "ShMcK",
+    "author": {
+        "@type": "Person",
+        "name": "Shawn McKay",
+        "image": "http://localhost:2368/content/images/2015/02/header-shawn-2.png",
+        "url": "http://localhost:2368/author/shmck",
+        "sameAs": null,
+        "description": null
+    },
+    "headline": "ES6 Generators with Angular",
+    "url": "http://localhost:2368/es6-generators/",
+    "datePublished": "2015-02-13T05:31:34.419Z",
+    "dateModified": "2015-02-17T01:35:49.719Z",
+    "image": "http://localhost:2368/content/images/2015/02/Electric_power_is_a_weapon_of_war-_No_tank-_no_shell-_no_plane_can_be_made_without_it-_TVA_jobs_are_war_jobs-_-_NARA_-_534837.jpg",
+    "keywords": "AngularJS, ES6, JS",
+    "description": "ES6 Generators With Christmas come early this coming June, JavaScript is getting a shiny new coat of paint. ES6 comes with a lot of great new features. In particular, if you haven&#x27;t tried generators yet, or if you have, and..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.6" />
+    <link rel="alternate" type="application/rss+xml" title="ShMcK" href="../rss/index.html" />
+</head>
+<body class="post-template tag-angularjs tag-es6 tag-js">
+
+    <a href="../index.html" class="logo-readium"><span class="logo" style="background-image: url(../content/images/2015/03/logo-mountain.png)"></span></a>
+    
+
+<main class="content" role="main">
+
+    <article class="post tag-angularjs tag-es6 tag-js">
+
+
+
+        <div class="noarticleimage">
+            <div class="post-meta">
+                <h1 class="post-title">ES6 Generators with Angular</h1>
+                <div class="cf post-meta-text">
+                    <div class="author-image" style="background-image: url(../content/images/2015/02/header-shawn-2.png)">Blog Logo</div>
+                    <h4 class="author-name" itemprop="author" itemscope itemtype="http://schema.org/Person"><a href="../author/shmck/index.html">Shawn McKay</a></h4> on
+                    <time datetime="2015-02-13">13 Feb 2015</time>, tagged on <span class="post-tag-angularjs"><a href="../tag/angularjs">AngularJS</a></span><span class="post-tag-es6">, <a href="../tag/es6">ES6</a></span><span class="post-tag-js">, <a href="../tag/js">JS</a></span>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+
+
+
+            <section class="post-content">
+                <div class="post-reading">
+                    <span class="post-reading-time"></span> read
+                </div>
+                <a name="topofpage"></a>
+                <h1 id="es6generators">ES6 Generators</h1>
+
+<p>With Christmas come early this coming June, JavaScript is getting a shiny new coat of paint. ES6 comes with a lot of great new features. In particular, if you haven't tried generators yet, or if you have, and they still don't make sense, this post might be helpful.</p>
+
+<p>ES6 (node-harmony, iojs) with generators are already common in Node.js. Checkout <a href="http://koajs.com/">Koa.js</a> by the original creators of Express. So why don't we see them much on the client-side? The client-side environment is harder to control, but with transpilation we can avoid this problem.</p>
+
+<h2 id="es6setup">ES6 Setup</h2>
+
+<p>In order to get started with ES6 today, you're going to need to change your JavaScript into standard ES5 code. This is called transpilation. If you plan on supporting older browsers in the future, you might as well get used to the process, as its a great way to  use ES6 &amp; proposed ES7 features today.</p>
+
+<p>You can get started with ES6 in the browser today using a real-time compiler such as <a href="https://github.com/google/traceur-compiler">Traceur</a> or the pre-compiler <a href="https://babeljs.io/">Babel</a> (formerly named 6to5). Or if generators are the only thing you're looking to add to your code, Facebook has a project called <a href="https://github.com/facebook/regenerator">Regenerator</a>.</p>
+
+<p>An easy way to get started is to use the Yeoman generator <a href="https://github.com/Swiip/generator-gulp-angular">gulp-angular</a>. It provides options for a setup for either Traceur or 6to5. Unfortunately, I'm still looking for a better quick-start option for handling modules, perhaps with JSPM (ideas?).</p>
+
+<h2 id="humanreadableasync">Human Readable Async</h2>
+
+<p>Generators can help make your async code look human readable again. Let's compare traditional callback methods with generators. Spoiler alert: generators are way better.</p>
+
+<h3 id="callbacks">Callbacks</h3>
+
+<pre><code class="language-javascript">function callbackFunction (var1) {  
+    first(success, failure) {
+        if (success) {
+            getSecondDependency(var1, success, failure) {
+            if (success {
+                second(secondDependency, success, failure) {
+                if (success) {
+                    third(success, failure) {}
+                    fourth(sucess, failure) {}
+                 }}}}}}}
+</code></pre>
+
+<ul>
+<li>Plus one for side scrollability.</li>
+</ul>
+
+<p>And the contender: Generators with spawn().</p>
+
+<h3 id="es6generatorswithspawn">ES6 Generators with Spawn</h3>
+
+<pre><code class="language-javascript">function generatorWithSpawn (var1) {  
+   spawn(function* () {
+    try {
+      yield first();
+      var secondDependency = yield getData(var1);
+      yield Promise.all(
+        second(secondDependency),
+        third(),
+        fourth()
+      );
+   }
+   catch (error) {
+       console.error(error);
+   }
+   });
+});
+</code></pre>
+
+<ul>
+<li>Plus one for readability.</li>
+<li>Plus one for error handling.</li>
+<li>Plus one for easy modification.</li>
+</ul>
+
+<h2 id="howgeneratorsspawnwork">How Generators &amp; Spawn Work</h2>
+
+<p><code>spawn()</code> simply wraps around your generator <code>function*</code> and runs the generator until it is complete.</p>
+
+<p>Whenever a process is async, you <code>yield</code> to it. Yield acts like a callback, saying 'pause here until the data comes back.' </p>
+
+<p>Spawn calls the next() iterator when every yield is complete until finished.  Use a try &amp; catch blocks for better error handling.</p>
+
+<p>Rather than $q, you can use Promise, another es6 feature to handle calls. There's <a href="https://github.com/ShMcK/angular-es6-async-services">a better example of using Promises and Spawn here</a>.</p>
+
+<p>Keep in mind that spawn functions are intended to return anything so there's no need to return anything. The spawn() function simply returns <code>undefined</code>.</p>
+
+<h2 id="setupspawninangular">Setup Spawn in Angular</h2>
+
+<p>Adding spawn as a service in Angular is pretty simple. This service is basically just taken from <a href="http://jakearchibald.com/2014/es7-async-functions/">Jake Archibalds blog post here.</a> and tossed into Angular. </p>
+
+<pre><code class="language-javascript">/* ES6 Generator - Spawn 
+ * Thanks to http://jakearchibald.com/2014/es7-async-functions/ */
+(function () {
+  'use strict';
+  angular.module('angularEs6Spawn', [])
+    .factory('spawn', spawn);
+function spawn() {  
+    return function (generatorFunc) {
+      function continuer(verb, arg) {
+        var result;
+        try {
+          result = generator[verb](arg);
+        } catch (err) {
+          return Promise.reject(err);
+        }
+        if (result.done) {
+          return result.value;
+        } else {
+          return Promise.resolve(result.value).then(onFulfilled, onRejected);
+        }
+      }
+      var generator = generatorFunc.apply(this, arguments);
+      var onFulfilled = continuer.bind(continuer, "next");
+      var onRejected = continuer.bind(continuer, "throw");
+      return onFulfilled();
+    };
+  }
+</code></pre>
+
+<p>Drop that code in and add the dependency 'angularEs6Generator` to your app. </p>
+
+<h3 id="followup">Follow-up</h3>
+
+<p>Generators are great. Read more about what you can do: </p>
+
+<ul>
+<li>next() can be called with a value passed to the yield statement. For 
+example:  </li>
+</ul>
+
+<pre><code class="language-javascript">next(function(a) { return a + 1; }  
+</code></pre>
+
+<p>This is potentially quite valuable. Check out <a href="http://chrisbuttery.com/articles/synchronous-asynchronous-javascript-with-es6-generators/">an example here</a>.</p>
+
+<ul>
+<li><a href="http://davidwalsh.name/concurrent-generators">CSP</a> - check out the ping pong game example. </li>
+</ul>
+
+<h3 id="readmore">Read More</h3>
+
+<p>It's even easier than it looks. Read more about ES6 Generators:</p>
+
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*">MDN function*</a></li>
+<li><a href="http://davidwalsh.name/es6-generators">David Walsh: ES6 Generators</a></li>
+<li><a href="http://www.joezimjs.com/javascript/synchronizing-asynchronous-javascript-es7/">Synchronizing Asynchronous JavaScript ES7</a></li>
+</ul>
+            </section>
+            <footer class="post-footer">
+                <section class="share">
+                    <a class="icon-twitter" href="http://twitter.com/share?text=ES6%20Generators%20with%20Angular&url=http://localhost:2368/es6-generators/"
+                        onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                        <span class="hidden">Twitter</span>
+                    </a>
+                    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/es6-generators/"
+                        onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                        <span class="hidden">Facebook</span>
+                    </a>
+                    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/es6-generators/"
+                       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                        <span class="hidden">Google+</span>
+                    </a>
+                </section>
+            </footer>
+                        <div class="bottom-teaser cf">
+                <div class="isLeft">
+                    <h5 class="index-headline featured"><span>Written by</span></h5>
+                    <section class="author">
+                        <div class="author-image" style="background-image: url(../content/images/2015/02/header-shawn-2.png)">Blog Logo</div>
+                        <h4><a href="../author/shmck/index.html">Shawn McKay</a></h4>
+                        <p class="bio"></p>
+                        <hr>
+                        <p class="published">Published <time datetime="2015-02-13">13 Feb 2015</time></p>
+                    </section>
+                </div>
+            </div>
+
+    </article>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+	var disqus_shortname = 'shmck'; // required: replace example with your forum shortname
+
+	/* * * DON'T EDIT BELOW THIS LINE * * */
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+<div class="bottom-closer">
+    <div class="background-closer-image" style="background-image: url(../content/images/2015/03/Mountain-short-dark.jpg)">
+        Image
+    </div>
+    <div class="inner">
+        <h1 class="blog-title">ShMcK</h1>
+        <h2 class="blog-description">JavaScript Web Dev in Korea</h2>
+        <a href="../index.html" class="btn">Back to Overview</a>
+    </div>
+</div>
+</main>
+
+
+    <script src="../public/jquery.js?v=0ab13dfc39"></script>
+
+    <script type="text/javascript" src="../assets/js/jquery.fitvids.js?v=0ab13dfc39"></script>
+    <script type="text/javascript" src="../assets/js/index.js?v=0ab13dfc39"></script>
+    <script src="../assets/js/readingTime.min.js?v=0ab13dfc39"></script>
+    <script src="../assets/js/prism.js?v=0ab13dfc39"></script>
+    <script src="../assets/js/highlight.pack.js?v=0ab13dfc39"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <script>
+        
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    
+      ga('create', 'UA-44377274-2');
+      ga('send', 'pageview');
+    
+    </script>
+
+</body>
+</html>

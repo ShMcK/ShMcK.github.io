@@ -27,12 +27,12 @@
     <meta property="og:description" content="">
 
     <link rel="shortcut icon" href="../favicon.ico">
-    <link rel="stylesheet" href="../assets/js/styles/obsidian.css?v=109f65bbe9">
+    <link rel="stylesheet" href="../assets/js/styles/obsidian.css?v=8d31f86b55">
     <link rel="stylesheet" href="http://brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i">
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" media="screen" href="../assets/css/main.css?v=109f65bbe9" />
-    <link rel="stylesheet" type="text/css" media="print" href="../assets/css/print.css?v=109f65bbe9" />
-	<link rel="stylesheet" type="text/css" media="print" href="../assets/css/prism.css?v=109f65bbe9" />
+    <link rel="stylesheet" type="text/css" media="screen" href="../assets/css/main.css?v=8d31f86b55" />
+    <link rel="stylesheet" type="text/css" media="print" href="../assets/css/print.css?v=8d31f86b55" />
+	<link rel="stylesheet" type="text/css" media="print" href="../assets/css/prism.css?v=8d31f86b55" />
     <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
     <link rel="canonical" href="index.html" />
     
@@ -43,7 +43,7 @@
     <meta property="og:url" content="http://localhost:2368/webpack-angular-part-3/" />
     <meta property="og:image" content="http://localhost:2368/content/images/2015/04/webpackAngular-2.png" />
     <meta property="article:published_time" content="2015-04-15T02:37:27.243Z" />
-    <meta property="article:modified_time" content="2015-04-15T06:28:47.356Z" />
+    <meta property="article:modified_time" content="2015-04-18T23:09:36.281Z" />
     
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Webpack &amp; Angular: Part 3" />
@@ -67,7 +67,7 @@
     "headline": "Webpack &amp; Angular: Part 3",
     "url": "http://localhost:2368/webpack-angular-part-3/",
     "datePublished": "2015-04-15T02:37:27.243Z",
-    "dateModified": "2015-04-15T06:28:47.356Z",
+    "dateModified": "2015-04-18T23:09:36.281Z",
     "image": "http://localhost:2368/content/images/2015/04/webpackAngular-2.png",
     "description": "Part 3 6 Ways to use Webpack Require with Angular For some reason, Webpack &amp;amp; Angular reminds me of late 90s Acne commercials.   It keeps your code: clean, clear &amp;amp; under control What a terrible way to start a blog..."
 }
@@ -225,7 +225,7 @@ export default () =&gt; {
   return {
     controller: NavCtrl,
     controllerAs: 'nav',
-    templateUrl: 'app/core/nav/nav.html'
+    templateUrl: './core/nav/nav.html'
   };
 };
 </code></pre>
@@ -235,7 +235,7 @@ export default () =&gt; {
 <p>/app/core/layout.js</p>
 
 <pre><code class="language-js">export default angular.module('app.layout', [])  
-  .directive('lumxNavbar', require('./nav/nav');
+  .directive('lumxNavbar', require('./nav/nav'));
 </code></pre>
 
 <p>This way, name changes remain very flexible even between files. </p>
@@ -272,7 +272,7 @@ And now we can require html files using relative paths, this makes it much easie
 
 <p>/app/core/nav/nav.js</p>
 
-<pre><code class="language-js">/* old templateUrl: 'app/core/nav/nav.html' */
+<pre><code class="language-js">/* old templateUrl: './core/nav/nav.html' */
 template: require('./nav.html')  
 </code></pre>
 
@@ -498,13 +498,13 @@ plugins: [
 </main>
 
 
-    <script src="../public/jquery.js?v=109f65bbe9"></script>
+    <script src="../public/jquery.js?v=8d31f86b55"></script>
 
-    <script type="text/javascript" src="../assets/js/jquery.fitvids.js?v=109f65bbe9"></script>
-    <script type="text/javascript" src="../assets/js/index.js?v=109f65bbe9"></script>
-    <script src="../assets/js/readingTime.min.js?v=109f65bbe9"></script>
-    <script src="../assets/js/prism.js?v=109f65bbe9"></script>
-    <script src="../assets/js/highlight.pack.js?v=109f65bbe9"></script>
+    <script type="text/javascript" src="../assets/js/jquery.fitvids.js?v=8d31f86b55"></script>
+    <script type="text/javascript" src="../assets/js/index.js?v=8d31f86b55"></script>
+    <script src="../assets/js/readingTime.min.js?v=8d31f86b55"></script>
+    <script src="../assets/js/prism.js?v=8d31f86b55"></script>
+    <script src="../assets/js/highlight.pack.js?v=8d31f86b55"></script>
     <script>hljs.initHighlightingOnLoad();</script>
     
     <script>

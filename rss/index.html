@@ -1,5 +1,124 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[ShMcK]]></title><description><![CDATA[JavaScript Web Dev in Korea]]></description><link>http://localhost:2368/</link><generator>Ghost 0.6</generator><lastBuildDate>Mon, 27 Apr 2015 10:03:36 GMT</lastBuildDate><atom:link href="http://localhost:2368/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Webpack & Angular: Part 3]]></title><description><![CDATA[<h5 id="part3">Part 3</h5>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[ShMcK]]></title><description><![CDATA[JavaScript Web Dev in Korea]]></description><link>http://localhost:2368/</link><generator>Ghost 0.6</generator><lastBuildDate>Wed, 06 May 2015 12:16:34 GMT</lastBuildDate><atom:link href="http://localhost:2368/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Angular Component Router Conventions]]></title><description><![CDATA[<p>The <a href="https://github.com/angular/router"><em>new-angular-router</em></a> coming with Angular 1.4+ now has a name: <strong>Component router</strong>. </p>
+
+<p>The Component router is aptly named, as it is designed to help break your project into components <em>(such as directives)</em>. </p>
+
+<p>Here's a brief overview of some structural changes:</p>
+
+<ul>
+<li>It routes to components (directives), not templates/controllers</li>
+<li>The</li></ul>]]></description><link>http://localhost:2368/component-router-conventions/</link><guid isPermaLink="false">878c7d4f-c1da-47ca-ae98-901c84e01afb</guid><dc:creator><![CDATA[Shawn McKay]]></dc:creator><pubDate>Wed, 06 May 2015 12:15:24 GMT</pubDate><content:encoded><![CDATA[<p>The <a href="https://github.com/angular/router"><em>new-angular-router</em></a> coming with Angular 1.4+ now has a name: <strong>Component router</strong>. </p>
+
+<p>The Component router is aptly named, as it is designed to help break your project into components <em>(such as directives)</em>. </p>
+
+<p>Here's a brief overview of some structural changes:</p>
+
+<ul>
+<li>It routes to components (directives), not templates/controllers</li>
+<li>The routes are setup in a controller/class, not during a config phase</li>
+<li>It uses default conventions to find templates &amp; controller names</li>
+</ul>
+
+<p>We'll look into this last point demonstrating how using the Component router with Angular 1.4 can help save you a lot of code.</p>
+
+<hr>
+
+<h3 id="conventions">Conventions</h3>
+
+<p>Conventions mean less code. But the magic behind the scenes, that is, the default template mapping and controller naming, can initially come with a lot of confusion. </p>
+
+<p>Let's make a comparison with ui-router to see the repetition Component router is trying to avoid. </p>
+
+<h5 id="uirouterexample">ui-Router Example</h5>
+
+<p>The popular ui-router is based on states.</p>
+
+<pre><code class="language-js">  $stateProvider
+      .state('abc', {
+        url: '/abc',
+        templateUrl: 'app/templates/abc.html',
+        controller: 'AbcCtrl as vm'
+      });
+</code></pre>
+
+<p>But not DRY enough (Don't Repeat Yourself). This method uses too much chalk.</p>
+
+<h5 id="componentrouterexample">Component Router Example</h5>
+
+<p>Component router comes with built in defaults of how to structure and find your code. </p>
+
+<p>The router defaults assume where the template is located and what the controller will be named.</p>
+
+<pre><code class="language-js">$router.config([{
+      path: '/abc',
+      component: 'abc'
+}]);
+</code></pre>
+
+<p>Component router makes the following assumptions based on the component name.</p>
+
+<ul>
+<li>templateUrl: '/components/abc/abc.html',</li>
+<li>controller name: 'AbcController'</li>
+<li>controllerAs: 'abc'</li>
+</ul>
+
+<p>If you're using compound names, Component router uses snake-case for templates &amp; camelCase for scripts.</p>
+
+<pre><code class="language-js">$router.config([{
+      path: '/defGhi',
+      component: 'defGhi'
+}]);
+</code></pre>
+
+<ul>
+<li>templateUrl: '/components/def-ghi/def-ghi.html'</li>
+<li>controller name: 'DefGhiController'</li>
+<li>controllerAs: 'defGhi'</li>
+</ul>
+
+<p>To keep things easy, just organize your components in the components folder by a snake-cased name. Everybody's happy.</p>
+
+<p>Not happy? If you're not going to let a router tell you how to organize your code, read on. Otherwise, you can leave it at that.</p>
+
+<h3 id="editingconventions">Editing Conventions</h3>
+
+<p>These conventions can be edited to your own liking use the <code>$componentLoaderProvider</code>. It's a provider, so run it in the <code>.config()</code> stage.</p>
+
+<hr>
+
+<h5 id="changecontrollername">Change Controller Name</h5>
+
+<p>Perhaps you like to name your controllers. You can use the <code>$componentLoaderProvider.setCtrlNameMapping</code> function which takes the component name and returns the new default controller name. </p>
+
+<p>Controller: CapitalizedCtrl  </p>
+
+<pre><code class="language-js">.config(function($componentLoaderProvider) {
+      $componentLoaderProvider.setCtrlNameMapping(function (name) {
+            // where name is the component name
+            var capitalized = name.charAt(0).toUpperCase() + name.slice(1);
+            return capitalized + 'Ctrl';
+      });
+}
+</code></pre>
+
+<p>The path to your templates can be changed using the <code>$componentLoaderProvider.setTemplateMapping</code> function which takes the component name and returns a path to the default template.</p>
+
+<p>Template: states/component-name.html  </p>
+
+<pre><code class="language-js">.config(function($componentLoaderProvider) {
+      $componentLoaderProvider.setTemplateMapping(function(name) {
+            var snakeCased = name.match(/[A-Z]*[^A-Z]+/g).join('-');
+            return '/states/' snakeCased + '.html';
+  });
+}
+</code></pre>
+
+<hr>
+
+<h3 id="conclusion">Conclusion</h3>
+
+<p>The Component router keeps your code DRY, forcing you to design your app in components, maximizing your use of directives, and using common conventions. It can be frustrating to get started with the Component Router without knowing the defaults, but personally, I've grown to appreciate it. </p>]]></content:encoded></item><item><title><![CDATA[Webpack & Angular: Part 3]]></title><description><![CDATA[<h5 id="part3">Part 3</h5>
 
 <h1 id="6waystousewebpackrequirewithangular">6 Ways to use Webpack Require with Angular</h1>
 

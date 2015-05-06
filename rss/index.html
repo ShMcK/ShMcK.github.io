@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[ShMcK]]></title><description><![CDATA[JavaScript Web Dev in Korea]]></description><link>http://localhost:2368/</link><generator>Ghost 0.6</generator><lastBuildDate>Wed, 06 May 2015 13:12:51 GMT</lastBuildDate><atom:link href="http://localhost:2368/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Component Router Lifecycle Hooks]]></title><description><![CDATA[<h1 id="part2componentrouterlifecyclehooks">Part 2: Component Router Lifecycle Hooks</h1>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[ShMcK]]></title><description><![CDATA[JavaScript Web Dev in Korea]]></description><link>http://localhost:2368/</link><generator>Ghost 0.6</generator><lastBuildDate>Wed, 06 May 2015 13:42:54 GMT</lastBuildDate><atom:link href="http://localhost:2368/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Component Router Lifecycle Hooks]]></title><description><![CDATA[<h1 id="part2componentrouterlifecyclehooks">Part 2: Component Router Lifecycle Hooks</h1>
 
 <h3 id="usinges6classesinangular1x">&amp; Using ES6 classes in Angular 1.x</h3>
 
@@ -129,7 +129,12 @@ class UserGoalsCtrl extends UserFormCtrl {}
 
 <p>In the view, bind your forms to the model <code>this.user</code> from UserFormCtrl and everything should work. Forms will be saved on route changes.</p>
 
-<pre><code class="language-markup">&lt;input type="text" ng-model="vm.user.password"&gt;  
+<pre><code class="language-markup">&lt;input type="text" ng-model="vm.user.password"&gt;
+
+&lt;a ng-link="userDescription"&gt;  
+  &lt;button&gt;Next&lt;/button&gt;
+&lt;/a&gt;  
+&lt;!-- note: ng-link requires the a tag --&gt;  
 </code></pre>
 
 <hr>

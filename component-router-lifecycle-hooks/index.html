@@ -8,7 +8,7 @@
     <!-- (1) force latest IE rendering engine: bit.ly/1c8EiC9 -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Angular Component Router</title>
+    <title>Component Router Lifecycle Hooks</title>
     <meta name="description" content="" />
 
     <meta name="HandheldFriendly" content="True" />
@@ -16,14 +16,14 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Angular Component Router">
+    <meta name="twitter:title" content="Component Router Lifecycle Hooks">
     <meta name="twitter:description" content="">
     <meta name="twitter:site" content="http://mark-read.info"> <!-- Change this to your URL -->
 <meta name="twitter:creator" content="@MarkReadM"> <!-- Change this to your Twitter Handel -->
     <meta name="google-site-verification" content="">
     <meta property="fb:admins" content="">
     <meta property="og:type" content="article">
-    <meta property="og:title" content="Angular Component Router">
+    <meta property="og:title" content="Component Router Lifecycle Hooks">
     <meta property="og:description" content="">
 
     <link rel="shortcut icon" href="../favicon.ico">
@@ -38,16 +38,16 @@
     
     <meta property="og:site_name" content="ShMcK" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="Angular Component Router" />
-    <meta property="og:description" content="Part 1: Component Router Conventions   The new-angular-router coming with Angular 1.4+ now has a name: Component router.  The Component router is aptly named, as it is designed to help break your project into components (such as directives).  Here&#x27;s a..." />
-    <meta property="og:url" content="http://localhost:2368/component-router-conventions/" />
-    <meta property="article:published_time" content="2015-05-06T12:15:24.828Z" />
-    <meta property="article:modified_time" content="2015-05-06T13:12:34.582Z" />
+    <meta property="og:title" content="Component Router Lifecycle Hooks" />
+    <meta property="og:description" content="Part 2: Component Router Lifecycle Hooks &amp;amp; Using ES6 classes in Angular 1.x In part 1 we looked at how router conventions help you stay organized and write less code.  Note: Component router is still in development &amp;amp; only..." />
+    <meta property="og:url" content="http://localhost:2368/component-router-lifecycle-hooks/" />
+    <meta property="article:published_time" content="2015-05-06T13:09:55.082Z" />
+    <meta property="article:modified_time" content="2015-05-06T13:10:39.108Z" />
     
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="Angular Component Router" />
-    <meta name="twitter:description" content="Part 1: Component Router Conventions   The new-angular-router coming with Angular 1.4+ now has a name: Component router.  The Component router is aptly named, as it is designed to help break your project into components (such as directives).  Here&#x27;s a..." />
-    <meta name="twitter:url" content="http://localhost:2368/component-router-conventions/" />
+    <meta name="twitter:title" content="Component Router Lifecycle Hooks" />
+    <meta name="twitter:description" content="Part 2: Component Router Lifecycle Hooks &amp;amp; Using ES6 classes in Angular 1.x In part 1 we looked at how router conventions help you stay organized and write less code.  Note: Component router is still in development &amp;amp; only..." />
+    <meta name="twitter:url" content="http://localhost:2368/component-router-lifecycle-hooks/" />
     
     <script type="application/ld+json">
 {
@@ -62,11 +62,11 @@
         "sameAs": null,
         "description": null
     },
-    "headline": "Angular Component Router",
-    "url": "http://localhost:2368/component-router-conventions/",
-    "datePublished": "2015-05-06T12:15:24.828Z",
-    "dateModified": "2015-05-06T13:12:34.582Z",
-    "description": "Part 1: Component Router Conventions   The new-angular-router coming with Angular 1.4+ now has a name: Component router.  The Component router is aptly named, as it is designed to help break your project into components (such as directives).  Here&#x27;s a..."
+    "headline": "Component Router Lifecycle Hooks",
+    "url": "http://localhost:2368/component-router-lifecycle-hooks/",
+    "datePublished": "2015-05-06T13:09:55.082Z",
+    "dateModified": "2015-05-06T13:10:39.108Z",
+    "description": "Part 2: Component Router Lifecycle Hooks &amp;amp; Using ES6 classes in Angular 1.x In part 1 we looked at how router conventions help you stay organized and write less code.  Note: Component router is still in development &amp;amp; only..."
 }
     </script>
 
@@ -86,7 +86,7 @@
 
         <div class="noarticleimage">
             <div class="post-meta">
-                <h1 class="post-title">Angular Component Router</h1>
+                <h1 class="post-title">Component Router Lifecycle Hooks</h1>
                 <div class="cf post-meta-text">
                     <div class="author-image" style="background-image: url(../content/images/2015/02/header-shawn-2.png)">Blog Logo</div>
                     <h4 class="author-name" itemprop="author" itemscope itemtype="http://schema.org/Person"><a href="../author/shmck/index.html">Shawn McKay</a></h4> on
@@ -105,127 +105,140 @@
                     <span class="post-reading-time"></span> read
                 </div>
                 <a name="topofpage"></a>
-                <h1 id="part1componentrouterconventions">Part 1: Component Router Conventions</h1>
+                <h1 id="part2componentrouterlifecyclehooks">Part 2: Component Router Lifecycle Hooks</h1>
 
-<p><br> <br />
-The <a href="https://github.com/angular/router"><em>new-angular-router</em></a> coming with Angular 1.4+ now has a name: <strong>Component router</strong>. </p>
+<h3 id="usinges6classesinangular1x">&amp; Using ES6 classes in Angular 1.x</h3>
 
-<p>The Component router is aptly named, as it is designed to help break your project into components <em>(such as directives)</em>. </p>
+<p><br></p>
 
-<p>Here's a brief overview of some structural changes:</p>
+<p>In <a href="http://shmck.com/component-router-conventions/">part 1</a> we looked at how router conventions help you stay organized and write less code. </p>
 
-<ul>
-<li>It routes to components (directives), not templates/controllers</li>
-<li>The routes are setup in a controller/class, not during a config phase</li>
-<li>It uses default conventions to find templates &amp; controller names</li>
-</ul>
+<p><em>Note: Component router is still in development &amp; only available for Angular 1.4+</em></p>
 
-<p>We'll look into this last point demonstrating how using the Component router with Angular 1.4 can help save you a lot of code.</p>
+<p>Now we'll look at something much more awesome. Using a multi-step form as an example, we'll see why you should take advantage of ES6 classes in Angular, and look at how to use component routers <a href="https://angular.github.io/router/lifecycle"><strong>Lifecycle Hooks</strong></a>.</p>
 
 <hr />
 
-<h3 id="conventions">Conventions</h3>
+<h3 id="project">Project</h3>
 
-<p>Conventions mean less code. But the magic behind the scenes, that is, the default template mapping and controller naming, can initially come with a lot of confusion. </p>
+<p>Here's the scenario: you have a <strong>multi-step user sign-up form</strong>, and you want to save the user data whenever there is a route change. </p>
 
-<p>Let's make a comparison with ui-router to see the repetition Component router is trying to avoid. </p>
+<p>First we'll need a service to save the data.</p>
 
-<h5 id="uirouterexample">ui-Router Example</h5>
+<h3 id="es6classesasservices">ES6 Classes as Services</h3>
 
-<p>The popular ui-router is based on states.</p>
+<p>This service will save our user form data to UserService.user.</p>
 
-<pre><code class="language-js">  $stateProvider
-      .state('abc', {
-        url: '/abc',
-        templateUrl: 'app/templates/abc.html',
-        controller: 'AbcCtrl as vm'
-      });
-</code></pre>
+<p>We can use <code>UserService.save(updates)</code> to merge new form data objects with our user. For example, if our user has existing data, <code>{name: 'Joe'}</code>, we can push more updates <code>{age: 24}</code> to make a  complete user object <code>{name: 'Joe', age: 24}</code>.</p>
 
-<p>But not DRY enough (Don't Repeat Yourself). This method uses too much chalk.</p>
-
-<h5 id="componentrouterexample">Component Router Example</h5>
-
-<p>Component router comes with built in defaults of how to structure and find your code. </p>
-
-<p>The router defaults assume where the template is located and what the controller will be named.</p>
-
-<pre><code class="language-js">$router.config([{
-      path: '/abc',
-      component: 'abc'
-}]);
-</code></pre>
-
-<p>Component router makes the following assumptions based on the component name.</p>
-
-<ul>
-<li>templateUrl: '/components/abc/abc.html',</li>
-<li>controller name: 'AbcController'</li>
-<li>controllerAs: 'abc'</li>
-</ul>
-
-<p>If you're using compound names, Component router uses snake-case for templates &amp; camelCase for scripts.</p>
-
-<pre><code class="language-js">$router.config([{
-      path: '/defGhi',
-      component: 'defGhi'
-}]);
-</code></pre>
-
-<ul>
-<li>templateUrl: '/components/def-ghi/def-ghi.html'</li>
-<li>controller name: 'DefGhiController'</li>
-<li>controllerAs: 'defGhi'</li>
-</ul>
-
-<p>To keep things easy, just organize your components in the components folder by a snake-cased name. Everybody's happy.</p>
-
-<p>Not happy? If you're not going to let a router tell you how to organize your code, read on. Otherwise, you can leave it at that.</p>
-
-<h3 id="editingconventions">Editing Conventions</h3>
-
-<p>These conventions can be edited to your own liking use the <code>$componentLoaderProvider</code>. It's a provider, so run it in the <code>.config()</code> stage.</p>
-
-<hr />
-
-<h5 id="changecontrollername">Change Controller Name</h5>
-
-<p>Perhaps you like to name your controllers. You can use the <code>$componentLoaderProvider.setCtrlNameMapping</code> function which takes the component name and returns the new default controller name. </p>
-
-<p>Controller: CapitalizedCtrl  </p>
-
-<pre><code class="language-js">.config(function($componentLoaderProvider) {
-      $componentLoaderProvider.setCtrlNameMapping(function (name) {
-            // where name is the component name
-            var capitalized = name.charAt(0).toUpperCase() + name.slice(1);
-            return capitalized + 'Ctrl';
-      });
+<pre><code class="language-js">class UserService {  
+  constructor() {
+    this.user = {};
+  }
+  save(updates) {
+    function update(obj) {
+      for (var i = 1; i &lt; arguments.length; i++) {
+        for (var prop in arguments[i]) {
+          var val = arguments[i][prop];
+          if (typeof val === 'object') {
+            update(obj[prop], val);
+          } else {
+            obj[prop] = val;
+          }
+        }
+      }
+      return obj;
+    }
+    update(this.user, updates);
+    // a Promise could be used here, returning false if there is an error. 
+    return true;
+  }
 }
+
+export default angular.module('app.services.user', [])  
+  .service('UserService', UserService);
 </code></pre>
 
-<p>The path to your templates can be changed using the <code>$componentLoaderProvider.setTemplateMapping</code> function which takes the component name and returns a path to the default template.</p>
+<h3 id="es6classesascontrollers">ES6 Classes as Controllers</h3>
 
-<p>Template: states/component-name.html  </p>
+<p>Why use ES6 classes as controllers? Inheritance. </p>
 
-<pre><code class="language-js">.config(function($componentLoaderProvider) {
-      $componentLoaderProvider.setTemplateMapping(function(name) {
-            var snakeCased = name.match(/[A-Z]*[^A-Z]+/g).join('-');
-            return '/states/' snakeCased + '.html';
-  });
+<p>But first, let's make our UserFormCtrl and inject the UserService we just made.</p>
+
+<pre><code class="language-js">export class UserFormCtrl {  
+  constructor(UserService) {
+    this.user = UserService;
+    // bind ng-model to this.user
+  }
 }
+UserFormCtrl.$inject = ['UserService'];  
+</code></pre>
+
+<p>This is what we want all our User Form controllers to inherit from.</p>
+
+<h3 id="lifecyclehookcandeactivate">LifeCycle Hook: canDeactivate</h3>
+
+<p>The Component router has a cool new feature called <a href="https://angular.github.io/router/lifecycle">lifecycle hooks</a>. These are functions that can be run during phases of routing, they include:</p>
+
+<ul>
+<li>canActivate</li>
+<li>canDeactivate</li>
+<li>deactivate </li>
+<li>activate</li>
+</ul>
+
+<p>I'll encourage you to read more about these hooks, but for the sake of brevity, let's focus on what we need. </p>
+
+<p>We want the form to save before the route changes, so we're looking at the <strong>canDeactivate</strong> hook.</p>
+
+<p>Let's adjust our FormCtrl class.</p>
+
+<pre><code class="language-js">UserFormCtrl.prototype.canDeactivate = function () {  
+  return this.User.save(this.form);
+  // true = continue
+  // false = stay with the current route. change fails.
+};
+</code></pre>
+
+<p>Now we have a class UserFormCtrl that will save on route change to our UserService.</p>
+
+<h3 id="extendinganes6class">Extending an ES6 Class</h3>
+
+<p>We can now create a series of multi-step form views with corresponding controllers.</p>
+
+<pre><code class="language-js">class UserProfileCtrl {}  
+class UserDescriptionCtrl {}  
+class UserGoalsCtrl {}  
+//
+export default angular.module('app.user.form', [])  
+.controller('UserProfileCtrl', UserProfileCtrl)
+.controller('UserDescriptionCtrl', UserDescriptionCtrl)
+.controller('UserGoalsCtrl', UserGoalsCtrl);
+</code></pre>
+
+<p>These form controllers can gain the ability to save to UserService through inheritance.</p>
+
+<pre><code class="language-js">class UserProfileCtrl extends UserFormCtrl {}  
+class UserDescriptionCtrl extends UserFormCtrl {}  
+class UserGoalsCtrl extends UserFormCtrl {}  
+</code></pre>
+
+<p>In the view, bind your forms to the model <code>this.user</code> from UserFormCtrl and everything should work. Forms will be saved on route changes.</p>
+
+<pre><code class="language-markup">&lt;input type="text" ng-model="vm.user.password"&gt;  
 </code></pre>
 
 <hr />
 
-<h3 id="conclusion">Conclusion</h3>
+<h2 id="conclusion">Conclusion</h2>
 
-<p>The Component router keeps your code DRY, forcing you to design your app in components, maximizing your use of directives, and using common conventions. It can be frustrating to get started with the Component Router without knowing the defaults, but personally, I've grown to appreciate it. </p>
+<p>There are good reasons to use ES6 Classes for controllers and services rather than just functions. It's not just a style decision.</p>
 
-<p>In <a href="https://shmck.com/component-router-lifecycle-hooks">part 2</a> we'll look into using Component router's lifecycle hooks to work some magic, as well as how to take advantage of using ES6 class inheritance.</p>
+<p>Also bear in mind, this is only scratching the surface of what you can do with the Component router's lifecycle hooks. These hooks are a great reason to try out the new router today.</p>
             </section>
             <footer class="post-footer">
                 <!--<section class="share">-->
-                  <!--<a href="https://twitter.com/share?text=Angular%20Component%20Router&url=http://localhost:2368/component-router-conventions/"-->
+                  <!--<a href="https://twitter.com/share?text=Component%20Router%20Lifecycle%20Hooks&url=http://localhost:2368/component-router-lifecycle-hooks/"-->
                      <!--onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">-->
                     <!--<i class="fa fa-twitter"></i></a>-->
                 <!--</section>-->

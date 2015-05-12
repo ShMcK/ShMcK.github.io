@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[ShMcK]]></title><description><![CDATA[JavaScript Web Dev in Korea]]></description><link>http://localhost:2368/</link><generator>Ghost 0.6</generator><lastBuildDate>Wed, 06 May 2015 13:42:54 GMT</lastBuildDate><atom:link href="http://localhost:2368/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Component Router Lifecycle Hooks]]></title><description><![CDATA[<h1 id="part2componentrouterlifecyclehooks">Part 2: Component Router Lifecycle Hooks</h1>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[ShMcK]]></title><description><![CDATA[JavaScript Web Dev in Korea]]></description><link>http://localhost:2368/</link><generator>Ghost 0.6</generator><lastBuildDate>Tue, 12 May 2015 07:02:59 GMT</lastBuildDate><atom:link href="http://localhost:2368/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Component Router Lifecycle Hooks]]></title><description><![CDATA[<h1 id="part2componentrouterlifecyclehooks">Part 2: Component Router Lifecycle Hooks</h1>
 
 <h3 id="usinges6classesinangular1x">&amp; Using ES6 classes in Angular 1.x</h3>
 
@@ -7,7 +7,7 @@
 
 <p>In <a href="http://shmck.com/component-router-conventions/">part 1</a> we looked at how router conventions help you stay organized and write less code. </p>
 
-<p><em>Note: Component router is still in development &amp; only available for Angular 1.4+</em></p>
+<p><em>Note: Component router is still in development &amp; only available for Angular 1.3+</em></p>
 
 <p>Now we'll look at something</p>]]></description><link>http://localhost:2368/component-router-lifecycle-hooks/</link><guid isPermaLink="false">995be51b-7411-4731-809c-2e1518204fd6</guid><dc:creator><![CDATA[Shawn McKay]]></dc:creator><pubDate>Wed, 06 May 2015 13:09:55 GMT</pubDate><content:encoded><![CDATA[<h1 id="part2componentrouterlifecyclehooks">Part 2: Component Router Lifecycle Hooks</h1>
 
@@ -17,7 +17,7 @@
 
 <p>In <a href="http://shmck.com/component-router-conventions/">part 1</a> we looked at how router conventions help you stay organized and write less code. </p>
 
-<p><em>Note: Component router is still in development &amp; only available for Angular 1.4+</em></p>
+<p><em>Note: Component router is still in development &amp; only available for Angular 1.3+</em></p>
 
 <p>Now we'll look at something much more awesome. Using a multi-step form as an example, we'll see why you should take advantage of ES6 classes in Angular, and look at how to use component routers <a href="https://angular.github.io/router/lifecycle"><strong>Lifecycle Hooks</strong></a>.</p>
 
@@ -146,7 +146,7 @@ class UserGoalsCtrl extends UserFormCtrl {}
 <p>Also bear in mind, this is only scratching the surface of what you can do with the Component router's lifecycle hooks. These hooks are a great reason to try out the new router today.</p>]]></content:encoded></item><item><title><![CDATA[Angular Component Router]]></title><description><![CDATA[<h1 id="part1componentrouterconventions">Part 1: Component Router Conventions</h1>
 
 <p><br> <br>
-The <a href="https://github.com/angular/router"><em>new-angular-router</em></a> coming with Angular 1.4+ now has a name: <strong>Component router</strong>. </p>
+The <a href="https://github.com/angular/router"><em>new-angular-router</em></a> coming with Angular 1.3+ now has a name: <strong>Component router</strong>. </p>
 
 <p>The Component router is aptly named, as it is designed to help break your project into components <em>(such as directives)</em>. </p>
 
@@ -156,7 +156,7 @@ The <a href="https://github.com/angular/router"><em>new-angular-router</em></a> 
 <li>It routes to components</li></ul>]]></description><link>http://localhost:2368/component-router-conventions/</link><guid isPermaLink="false">878c7d4f-c1da-47ca-ae98-901c84e01afb</guid><dc:creator><![CDATA[Shawn McKay]]></dc:creator><pubDate>Wed, 06 May 2015 12:15:24 GMT</pubDate><content:encoded><![CDATA[<h1 id="part1componentrouterconventions">Part 1: Component Router Conventions</h1>
 
 <p><br> <br>
-The <a href="https://github.com/angular/router"><em>new-angular-router</em></a> coming with Angular 1.4+ now has a name: <strong>Component router</strong>. </p>
+The <a href="https://github.com/angular/router"><em>new-angular-router</em></a> coming with Angular 1.3+ now has a name: <strong>Component router</strong>. </p>
 
 <p>The Component router is aptly named, as it is designed to help break your project into components <em>(such as directives)</em>. </p>
 
@@ -168,7 +168,11 @@ The <a href="https://github.com/angular/router"><em>new-angular-router</em></a> 
 <li>It uses default conventions to find templates &amp; controller names</li>
 </ul>
 
-<p>We'll look into this last point demonstrating how using the Component router with Angular 1.4 can help save you a lot of code.</p>
+<p>Let's take a look at comparison between the three popular routers in Angular: ngRouter, uiRouter, &amp; the new router.</p>
+
+<p><img src="http://localhost:2368/component-router-conventions/../content/images/2015/05/ComponentRouterComparison.png" alt="ComponentRouterComparison"></p>
+
+<p>In this post, we'll look how naming using the Component router with naming conventions can help save you a lot of code.</p>
 
 <hr>
 
@@ -1310,217 +1314,7 @@ printMessage();
 
 <p><img src="http://localhost:2368/javascript-not-popular-in-korea/../content/images/2015/03/angkor-banner.jpg" alt="Why JavaScript isn't Popular in Korea"></p>
 
-<p>Now I could be wrong, and often am. There's nothing worse than an outsiders perspective on an insiders world, and having said that I am now officially immune to criticism. That's how the world works. If you have any corrections, let me know in the comments.</p>]]></content:encoded></item><item><title><![CDATA[Angular Forms Made Incredibly Easy]]></title><description><![CDATA[<p>A wise man once told me the key to success is to love something useful that everyone else hates to do. Though this is great advice for aspiring actors and art majors, not everyone needs to go out and study tax law. </p>
-
-<p>For me, I love forms. I love the</p>]]></description><link>http://localhost:2368/forms-in-angular-made-easy/</link><guid isPermaLink="false">184607e6-621b-42e6-a21e-deafe43f421f</guid><category><![CDATA[AngularJS]]></category><category><![CDATA[Forms]]></category><dc:creator><![CDATA[Shawn McKay]]></dc:creator><pubDate>Tue, 17 Feb 2015 10:49:03 GMT</pubDate><media:content url="http://localhost:2368/content/images/2015/02/Screen-Shot-2015-02-17-at-6-39-37-PM.png" medium="image"/><content:encoded><![CDATA[<img src="http://localhost:2368/content/images/2015/02/Screen-Shot-2015-02-17-at-6-39-37-PM.png" alt="Angular Forms Made Incredibly Easy"><p>A wise man once told me the key to success is to love something useful that everyone else hates to do. Though this is great advice for aspiring actors and art majors, not everyone needs to go out and study tax law. </p>
-
-<p>For me, I love forms. I love the idea that design can take the act of filling in information, something most people disdain, and transform it into an experience. Before you scoff, take a look some of these <a href="http://tympanus.net/codrops/tag/form/">examples of great forms at Codrops.com</a>.</p>
-
-<p>We'll look at how to make amazing forms using Angular Formly.</p>
-
-<h2 id="angularformly">Angular Formly</h2>
-
-<p><a href="https://github.com/formly-js/angular-formly">Angular-Formly</a> is an incredibly simple and flexible form building tool. You provide a JSON like object and it generates your forms. Getting started is easy, have a look:</p>
-
-<p>In your <strong>controller</strong>: </p>
-
-<pre><code class="language-javascript">$scope.formData = {
-    name: ''
-};
-$scope.formFields = [{
-    key: 'name',   // this goes into the model: $scope.formData.name
-    type: 'text',
-    templateOptions: {
-        label: 'Name',
-        required: true
-    }
-}];
-</code></pre>
-
-<p>In your <strong>view</strong>:</p>
-
-<pre><code class="language-markup">&lt;formly-form model="formData" formFields="formFields"&gt;&lt;/formly-form&gt;  
-</code></pre>
-
-<p>Dude. That just made a form. </p>
-
-<h1 id="angularformlyfeatures">Angular Formly Features</h1>
-
-<p>It has a ton of features, basically allowing you to do anything you could do in JS/HTML within a config object. Let's look at some:</p>
-
-<h3 id="focus">Focus</h3>
-
-<p>Start by focusing on the first field.  </p>
-
-<pre><code class="language-javascript">    templateOptions: {
-        focus: true
-    }
-</code></pre>
-
-<h3 id="expressionproperties">Expression Properties</h3>
-
-<p>Expression properties can be used to hide/show only relevent form information. This can be useful when users with specific criteria don't need to fill out all information. For example, I always have to fill out street name data although I live in Korea where streets don't have names.</p>
-
-<pre><code class="language-javascript">    expressionProperties: {
-        hide: 'model.country === "Korea"' 
-     }
-</code></pre>
-
-<p>Whew, no more of that.</p>
-
-<p>Expression properties can also be used to change the form based on user provided input. This example changes the label to the input value. Cool!</p>
-
-<pre><code class="language-javascript">    expressionProperties: {
-          'templateOptions.label': '$viewValue'
-         }
-</code></pre>
-
-<h3 id="templates">Templates</h3>
-
-<p>Angular Formly has templates for Bootstrap, Foundation, Ionic, LumX, and more (though some are in progress). We'll look at LumX, because that's the templates I've developed.</p>
-
-<p><a href="http://ui.lumapps.com/">LumX</a> is a great css framework built on <a href="http://www.google.com/design/spec/material-design/introduction.html">material design</a> principles. My recent project has been creating LumX templates to take advantage of angular-formly. Have a look at the <a href="https://formly-lumx.herokuapp.com/#/input">demo</a> &amp; checkout the <a href="https://github.com/formly-js/angular-formly-templates-lumx">github repo</a>.</p>
-
-<h3 id="easyvalidation">Easy Validation</h3>
-
-<p>With Angular-Formly, validation is treated as a template option, and thus it is different depending on the templates you select (if any).</p>
-
-<pre><code class="language-javascript ">    templateOptions: {
-        required: true
-    }
-</code></pre>
-
-<p>These options will make a field required. Easy stuff.</p>
-
-<h3 id="validators">Validators</h3>
-
-<p>Use a validator to check if your information is what you expect. Validators can be a function that returns true/false or a promise. Validators use the async validator pipeline in Angular.  </p>
-
-<pre><code class="language-javascript">    validators: {
-        specialEmail: function(modelValue, viewValue) {
-            return $timeout(function() {
-                 var fn = (modelValue || viewValue) === 'a@b.c' ? $q.when : $q.reject;
-              return fn();
-        }, 1000);
-   }
-</code></pre>
-
-<p>Then the notification can be added to validation.messages.</p>
-
-<pre><code class="language-javascript">    validation: {
-        messages: [{
-            name: 'specialEmail',
-            message: 'Sorry, that wasn't the correct email address.'
-        }]
-    }
-</code></pre>
-
-<h3 id="ngdirectivevalidators">ng-directive Validators</h3>
-
-<p>Drop in an ng-directive for validation.  </p>
-
-<pre><code class="language-javascript">    ngModelAttrs: {
-        bound: {
-            'minlength': 4,
-            'maxlength': 10
-        }
-    },
-    validation: {
-        messsages: [{
-            name: 'minlength',
-            message: 'The field must be at least 4 characters.'
-        }, {
-            name: 'maxlength',
-            message: 'The field must be 10 or more characters.'
-        }]
-    }
-</code></pre>
-
-<h3 id="easyvalidationmessagenotification">Easy Validation Message Notification</h3>
-
-<p>Wrappers wrap a transcluded div around your form item. In LumX, you can use 'lx-wrapper-errors' for ng-message based notification.</p>
-
-<pre><code class="language-javascript">    wrapper: 'lx-wrapper-errors'
-</code></pre>
-
-<p>These notifications can be customized using validation messages.</p>
-
-<pre><code class="language-javascript">    validation: {
-        messages: [{
-            name: 'required',
-            message: 'Email is required.'
-        }]
-    }
-</code></pre>
-
-<p>Default messages can be setup in a template.</p>
-
-<h3 id="validationtimingoptions">Validation Timing Options</h3>
-
-<p>When to check validation is also something to consider.</p>
-
-<ul>
-<li>When a user leaves a field?</li>
-</ul>
-
-<p>This can be handled simply in angular-formly with ngModelOptions.</p>
-
-<pre><code class="language-javascript">    modelOptions: {
-        updateOn: blur
-    }
-</code></pre>
-
-<ul>
-<li>When a user immediately enters invalid information?</li>
-</ul>
-
-<pre><code class="language-javascript">    modelOptions: {
-        updateOn: keyup
-    }
-</code></pre>
-
-<ul>
-<li>500ms after a user enters invalid information?</li>
-</ul>
-
-<pre><code class="language-javascript">    modelOptions: {
-        updateOn: keyup,
-        debounce: {
-            keyup: 500
-        }
-    }
-</code></pre>
-
-<ul>
-<li>Any combination of above?</li>
-</ul>
-
-<h3 id="rejectinginvalidinformation">Rejecting Invalid Information</h3>
-
-<p>You can prevent invalid data from getting saved by setting allowInvalid to false.</p>
-
-<pre><code class="language-javascript">    modelOptions: {
-        allowInvalid: false
-    }
-</code></pre>
-
-<h3 id="addalinkorcontrollertoaformfield">Add a link or controller to a form field</h3>
-
-<pre><code class="language-javascript">     link: function(scope, el) {
-          console.log(scope, el);
-        },
-     controller: function($scope, $log) {
-        $log.info($scope);
-    }
-</code></pre>
-
-<h2 id="finalthoughts">Final Thoughts</h2>
-
-<p>Great forms don't have to be difficult. They don't even necessarily require a lot of code.</p>
-
-<p>Angular-Formly is powerful, fairly well documented and super easy to use. Angular-formly-templates-lumx is a great tool built on top of it. Putting all of your form fields into an object which can then be loaded via $http allows you to reduce your html and overall code bloat. Awesome!</p>
-
-<p>I'll try to get more advanced demos up on angular-formly-templates-lumx in the near future to show the full power of the angular-formly library.</p>]]></content:encoded></item><item><title><![CDATA[Comparing Angular 1.x & 2.0]]></title><description><![CDATA[<h3 id="theobsorneeffect">The Obsorne Effect</h3>
+<p>Now I could be wrong, and often am. There's nothing worse than an outsiders perspective on an insiders world, and having said that I am now officially immune to criticism. That's how the world works. If you have any corrections, let me know in the comments.</p>]]></content:encoded></item><item><title><![CDATA[Comparing Angular 1.x & 2.0]]></title><description><![CDATA[<h3 id="theobsorneeffect">The Obsorne Effect</h3>
 
 <p>The Angular team faces a problem. How do you talk the great new features of Angular 2.0 under development without damaging use of the current 1.x? This effect is often called the <a href="http://en.wikipedia.org/wiki/Osborne_effect">Obsborne effect</a>, named after a 1980s computer company whose marketing contributed to putting</p>]]></description><link>http://localhost:2368/comparing-angular-1-x-2-0/</link><guid isPermaLink="false">7b73ab8b-e49c-4490-837e-9c58612201fb</guid><category><![CDATA[AngularJS]]></category><category><![CDATA[angular2.0]]></category><dc:creator><![CDATA[Shawn McKay]]></dc:creator><pubDate>Tue, 17 Feb 2015 03:50:27 GMT</pubDate><content:encoded><![CDATA[<h3 id="theobsorneeffect">The Obsorne Effect</h3>
 

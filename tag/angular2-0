@@ -76,7 +76,7 @@
 <header class="blog-header">
     <a class="blog-logo" href="../index.html" style="background-image: url(../content/images/2015/03/logo-mountain.png)">ShMcK</a>
     <h1 class="blog-title">ShMcK</h1>
-    <h2 class="blog-description">JavaScript Web Dev in Korea</h2>
+    <h2 class="blog-description">Now at <a href='https://medium.com/@shmck'>Blog</a></h2>
 </header>
 
 <script>
